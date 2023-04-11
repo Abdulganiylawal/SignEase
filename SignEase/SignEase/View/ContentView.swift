@@ -30,7 +30,7 @@ struct ContentView: View {
                     .background(Color.blue,in: RoundedRectangle(cornerRadius: 30, style: .continuous))
                     .padding(.trailing, 20)
                     .sheet(isPresented: $ShowScreen) {
-                        CameraComponent()
+                        CommunicatorView()
                     }
                     Button(action: {
                         // Do something when the second button is tapped

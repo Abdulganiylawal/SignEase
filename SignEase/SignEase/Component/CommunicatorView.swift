@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CameraComponent: View {
+struct CommunicatorView: View {
     var body: some View {
         VStack{
             CameraView()
@@ -17,8 +17,8 @@ struct CameraComponent: View {
     }
 }
 
-struct CameraComponent_Previews: PreviewProvider {
+struct CommunicatorView_Previews: PreviewProvider {
     static var previews: some View {
-        CameraComponent()
+        CommunicatorView()
     }
 }

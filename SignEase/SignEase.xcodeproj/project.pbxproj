@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		10064A1829E5904E0085B100 /* CameraComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10064A1729E5904E0085B100 /* CameraComponent.swift */; };
+		10064A1829E5904E0085B100 /* CommunicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10064A1729E5904E0085B100 /* CommunicatorView.swift */; };
 		10064A1B29E590FB0085B100 /* AugmentedReality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10064A1A29E590FB0085B100 /* AugmentedReality.swift */; };
 		100FD48429D472700016184B /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100FD48329D472700016184B /* CameraView.swift */; };
 		10ABE6B429CF3D1400A2F705 /* SignEaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ABE6B329CF3D1400A2F705 /* SignEaseApp.swift */; };
@@ -18,7 +18,7 @@
 
 /* Begin PBXFileReference section */
 		10064A1529E588FE0085B100 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		10064A1729E5904E0085B100 /* CameraComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraComponent.swift; sourceTree = "<group>"; };
+		10064A1729E5904E0085B100 /* CommunicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorView.swift; sourceTree = "<group>"; };
 		10064A1A29E590FB0085B100 /* AugmentedReality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedReality.swift; sourceTree = "<group>"; };
 		100FD48329D472700016184B /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		10ABE6B029CF3D1400A2F705 /* SignEase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SignEase.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,7 +42,7 @@
 		10064A1629E5902A0085B100 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				10064A1729E5904E0085B100 /* CameraComponent.swift */,
+				10064A1729E5904E0085B100 /* CommunicatorView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -172,7 +172,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10064A1829E5904E0085B100 /* CameraComponent.swift in Sources */,
+				10064A1829E5904E0085B100 /* CommunicatorView.swift in Sources */,
 				10064A1B29E590FB0085B100 /* AugmentedReality.swift in Sources */,
 				100FD48429D472700016184B /* CameraView.swift in Sources */,
 				10ABE6B629CF3D1400A2F705 /* ContentView.swift in Sources */,
