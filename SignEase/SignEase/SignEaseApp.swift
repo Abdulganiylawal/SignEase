@@ -11,7 +11,7 @@ import SwiftUI
 struct SignEaseApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+           ContentView()
         }
     }
 }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var orientation = UIDeviceOrientation.unknown
+    @State private var ShowScreen: Bool = false
     var body: some View {
         ZStack {
             Image("Background 4")
@@ -18,8 +18,9 @@ struct ContentView: View {
                     .frame(width: 300)
                 HStack {
                     Button(action: {
-                        // Do something when the first button is tapped
-                    }) {
+                        ShowScreen.toggle()
+                    }
+                    ) {
                         Text("Start")
                             .font(.title2)
                             .fontWeight(.semibold)
@@ -28,6 +29,9 @@ struct ContentView: View {
                     .frame(width: 150, height: 50)
                     .background(Color.blue,in: RoundedRectangle(cornerRadius: 30, style: .continuous))
                     .padding(.trailing, 20)
+                    .sheet(isPresented: $ShowScreen) {
+                        CameraComponent()
+                    }
                     Button(action: {
                         // Do something when the second button is tapped
                     }) {
@@ -38,16 +42,14 @@ struct ContentView: View {
                     }
                     .frame(width: 150, height: 50)
                     .background(Color.green,in: RoundedRectangle(cornerRadius: 30, style: .continuous))
-
+                    
                     .padding(.leading, 20)
                 }
                 .padding(.bottom, 50)
-//                if orientation.isLandscape{
-//                    
-//                }
                 .offset(y:100)
             }
         }
+        
     }
 }
 

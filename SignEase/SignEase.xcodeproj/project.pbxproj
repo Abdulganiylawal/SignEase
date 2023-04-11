@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10064A1829E5904E0085B100 /* CameraComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10064A1729E5904E0085B100 /* CameraComponent.swift */; };
+		10064A1B29E590FB0085B100 /* AugmentedReality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10064A1A29E590FB0085B100 /* AugmentedReality.swift */; };
+		100FD48429D472700016184B /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100FD48329D472700016184B /* CameraView.swift */; };
 		10ABE6B429CF3D1400A2F705 /* SignEaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ABE6B329CF3D1400A2F705 /* SignEaseApp.swift */; };
 		10ABE6B629CF3D1400A2F705 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ABE6B529CF3D1400A2F705 /* ContentView.swift */; };
 		10ABE6B829CF3D1700A2F705 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10ABE6B729CF3D1700A2F705 /* Assets.xcassets */; };
@@ -14,6 +17,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		10064A1529E588FE0085B100 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		10064A1729E5904E0085B100 /* CameraComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraComponent.swift; sourceTree = "<group>"; };
+		10064A1A29E590FB0085B100 /* AugmentedReality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedReality.swift; sourceTree = "<group>"; };
+		100FD48329D472700016184B /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		10ABE6B029CF3D1400A2F705 /* SignEase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SignEase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10ABE6B329CF3D1400A2F705 /* SignEaseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignEaseApp.swift; sourceTree = "<group>"; };
 		10ABE6B529CF3D1400A2F705 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,6 +39,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10064A1629E5902A0085B100 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				10064A1729E5904E0085B100 /* CameraComponent.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		10ABE6A729CF3D1400A2F705 = {
 			isa = PBXGroup;
 			children = (
@@ -51,8 +66,10 @@
 		10ABE6B229CF3D1400A2F705 /* SignEase */ = {
 			isa = PBXGroup;
 			children = (
+				10064A1529E588FE0085B100 /* Info.plist */,
 				10ABE6B329CF3D1400A2F705 /* SignEaseApp.swift */,
 				10ABE6C129CF3E7500A2F705 /* View */,
+				10064A1629E5902A0085B100 /* Component */,
 				10ABE6C229CF3E8200A2F705 /* Model */,
 				10ABE6B729CF3D1700A2F705 /* Assets.xcassets */,
 				10ABE6B929CF3D1700A2F705 /* Preview Content */,
@@ -72,6 +89,8 @@
 			isa = PBXGroup;
 			children = (
 				10ABE6B529CF3D1400A2F705 /* ContentView.swift */,
+				100FD48329D472700016184B /* CameraView.swift */,
+				10064A1A29E590FB0085B100 /* AugmentedReality.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -153,6 +172,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10064A1829E5904E0085B100 /* CameraComponent.swift in Sources */,
+				10064A1B29E590FB0085B100 /* AugmentedReality.swift in Sources */,
+				100FD48429D472700016184B /* CameraView.swift in Sources */,
 				10ABE6B629CF3D1400A2F705 /* ContentView.swift in Sources */,
 				10ABE6B429CF3D1400A2F705 /* SignEaseApp.swift in Sources */,
 			);
@@ -286,7 +308,9 @@
 				DEVELOPMENT_TEAM = 8JB77APLGL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SignEase/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please Allow Acess to Camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -317,7 +341,9 @@
 				DEVELOPMENT_TEAM = 8JB77APLGL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SignEase/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please Allow Acess to Camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
