@@ -1,0 +1,24 @@
+{
+    "fileFormatVersion": "1.0.0",
+    "itemInfoEntries": {
+        "2AFAB72D-E1B3-4C17-9BB7-57DCCE64DC46": {
+            "author": "com.apple.CoreML",
+            "description": "CoreML Model Specification",
+            "name": "ASLDetector 1.mlmodel",
+            "path": "com.apple.CoreML/ASLDetector 1.mlmodel"
+        },
+        "B2A371A9-8B99-4368-8A7F-F6D591787D65": {
+            "author": "com.apple.CoreML",
+            "description": "External FeatureDescription Overlay",
+            "name": "FeatureDescriptions.json",
+            "path": "com.apple.CoreML/FeatureDescriptions.json"
+        },
+        "D22594CB-A576-44FC-9615-231A13AC47D2": {
+            "author": "com.apple.CoreML",
+            "description": "External Metadata Overlay",
+            "name": "Metadata.json",
+            "path": "com.apple.CoreML/Metadata.json"
+        }
+    },
+    "rootModelIdentifier": "2AFAB72D-E1B3-4C17-9BB7-57DCCE64DC46"
+}
