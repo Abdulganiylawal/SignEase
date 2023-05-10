@@ -19,6 +19,7 @@ struct ContentView: View {
                 HStack {
                     Button(action: {
                         ShowScreen.toggle()
+                        print("hello")
                     }
                     ) {
                         Text("Start")
@@ -31,6 +32,7 @@ struct ContentView: View {
                     .padding(.trailing, 20)
                     .sheet(isPresented: $ShowScreen) {
                         CommunicatorView()
+                         
                     }
                     Button(action: {
                         // Do something when the second button is tapped
