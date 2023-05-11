@@ -9,25 +9,29 @@
 /* Begin PBXBuildFile section */
 		10064A1829E5904E0085B100 /* CommunicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10064A1729E5904E0085B100 /* CommunicatorView.swift */; };
 		10064A1B29E590FB0085B100 /* AugmentedReality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10064A1A29E590FB0085B100 /* AugmentedReality.swift */; };
-		10064A1D29E5A9A40085B100 /* ASLDetector 1.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 10064A1C29E5A9A40085B100 /* ASLDetector 1.mlpackage */; };
 		100FD48429D472700016184B /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100FD48329D472700016184B /* CameraView.swift */; };
+		1048AC7D2A0CD095001F7856 /* ObjectDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1048AC7C2A0CD095001F7856 /* ObjectDetector.mlmodel */; };
 		10ABE6B429CF3D1400A2F705 /* SignEaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ABE6B329CF3D1400A2F705 /* SignEaseApp.swift */; };
 		10ABE6B629CF3D1400A2F705 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ABE6B529CF3D1400A2F705 /* ContentView.swift */; };
 		10ABE6B829CF3D1700A2F705 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10ABE6B729CF3D1700A2F705 /* Assets.xcassets */; };
 		10ABE6BB29CF3D1700A2F705 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10ABE6BA29CF3D1700A2F705 /* Preview Assets.xcassets */; };
+		10D0B6A42A0CBAF300570BA4 /* ASLDetector1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 10D0B6A32A0CBAF300570BA4 /* ASLDetector1.mlmodel */; };
+		10F80BE82A0BEFC900AF0327 /* ObjectDetector1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F80BE72A0BEFC900AF0327 /* ObjectDetector1.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		10064A1529E588FE0085B100 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		10064A1729E5904E0085B100 /* CommunicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorView.swift; sourceTree = "<group>"; };
 		10064A1A29E590FB0085B100 /* AugmentedReality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedReality.swift; sourceTree = "<group>"; };
-		10064A1C29E5A9A40085B100 /* ASLDetector 1.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = "ASLDetector 1.mlpackage"; sourceTree = "<group>"; };
 		100FD48329D472700016184B /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		1048AC7C2A0CD095001F7856 /* ObjectDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ObjectDetector.mlmodel; sourceTree = "<group>"; };
 		10ABE6B029CF3D1400A2F705 /* SignEase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SignEase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10ABE6B329CF3D1400A2F705 /* SignEaseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignEaseApp.swift; sourceTree = "<group>"; };
 		10ABE6B529CF3D1400A2F705 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		10ABE6B729CF3D1700A2F705 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10ABE6BA29CF3D1700A2F705 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		10D0B6A32A0CBAF300570BA4 /* ASLDetector1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ASLDetector1.mlmodel; sourceTree = "<group>"; };
+		10F80BE72A0BEFC900AF0327 /* ObjectDetector1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectDetector1.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +53,14 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		10064A1E29E5B0860085B100 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				10F80BE72A0BEFC900AF0327 /* ObjectDetector1.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		10ABE6A729CF3D1400A2F705 = {
 			isa = PBXGroup;
 			children = (
@@ -68,11 +80,12 @@
 		10ABE6B229CF3D1400A2F705 /* SignEase */ = {
 			isa = PBXGroup;
 			children = (
+				10064A1E29E5B0860085B100 /* Model */,
 				10064A1529E588FE0085B100 /* Info.plist */,
 				10ABE6B329CF3D1400A2F705 /* SignEaseApp.swift */,
 				10ABE6C129CF3E7500A2F705 /* View */,
 				10064A1629E5902A0085B100 /* Component */,
-				10ABE6C229CF3E8200A2F705 /* Model */,
+				10ABE6C229CF3E8200A2F705 /* MLModel */,
 				10ABE6B729CF3D1700A2F705 /* Assets.xcassets */,
 				10ABE6B929CF3D1700A2F705 /* Preview Content */,
 			);
@@ -97,12 +110,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		10ABE6C229CF3E8200A2F705 /* Model */ = {
+		10ABE6C229CF3E8200A2F705 /* MLModel */ = {
 			isa = PBXGroup;
 			children = (
-				10064A1C29E5A9A40085B100 /* ASLDetector 1.mlpackage */,
+				10D0B6A32A0CBAF300570BA4 /* ASLDetector1.mlmodel */,
+				1048AC7C2A0CD095001F7856 /* ObjectDetector.mlmodel */,
 			);
-			path = Model;
+			path = MLModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,12 +189,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10D0B6A42A0CBAF300570BA4 /* ASLDetector1.mlmodel in Sources */,
 				10064A1829E5904E0085B100 /* CommunicatorView.swift in Sources */,
 				10064A1B29E590FB0085B100 /* AugmentedReality.swift in Sources */,
+				10F80BE82A0BEFC900AF0327 /* ObjectDetector1.swift in Sources */,
 				100FD48429D472700016184B /* CameraView.swift in Sources */,
-				10064A1D29E5A9A40085B100 /* ASLDetector 1.mlpackage in Sources */,
 				10ABE6B629CF3D1400A2F705 /* ContentView.swift in Sources */,
 				10ABE6B429CF3D1400A2F705 /* SignEaseApp.swift in Sources */,
+				1048AC7D2A0CD095001F7856 /* ObjectDetector.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

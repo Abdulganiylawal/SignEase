@@ -16,7 +16,7 @@ struct CameraView: UIViewRepresentable {
 
 class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     // MARK: - Properties
-   
+    
     private var session: AVCaptureSession!
     private var previewLayer: AVCaptureVideoPreviewLayer!
     var bufferSize: CGSize = .zero
@@ -34,7 +34,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCamera()
-
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -52,11 +52,16 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     // MARK: - Private Methods
     
-   func setupCamera() {
+    func setupCamera() {
         // Request camera permissions
-      
+        
         AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
             guard let self = self else { return }
             
@@ -75,14 +80,20 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
                 print("Failed to create capture device input.")
                 return
             }
+            self.session.beginConfiguration()
+        
             
+            // Add a video data input
+            guard self.session.canAddInput(deviceInput) else {
+                print("Could not add video device input to the session")
+                self.session.commitConfiguration()
+                return
+            }
             self.session.addInput(deviceInput)
             
             // Add a video data output
             if self.session.canAddOutput(self.videoDataOutput) {
                 self.session.addOutput(self.videoDataOutput)
-                
-                // Add a video data output
                 self.videoDataOutput.alwaysDiscardsLateVideoFrames = true
                 self.videoDataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
                 self.videoDataOutput.setSampleBufferDelegate(self, queue: self.videoDataOutputQueue)
@@ -103,20 +114,18 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
                 // Create a preview layer
                 self.previewLayer = AVCaptureVideoPreviewLayer(session: self.session)
                 self.previewLayer.videoGravity = .resizeAspectFill
+                // Add the preview layer to the view
                 
-             
-                    // Add the preview layer to the view
-                    self.rootLayer = self.view.layer
-                    print(self.view.layer)
-                    self.previewLayer.frame = self.rootLayer.bounds
-                    self.rootLayer.addSublayer(self.previewLayer)
-                
-          
+                self.rootLayer = self.view.layer
+                print(self.view.layer)
+                self.previewLayer.frame = self.rootLayer.bounds
+                self.rootLayer.addSublayer(self.previewLayer)
                 self.setupLayers()
                 self.updateLayerGeometry()
+                
                 self.setupVision()
-                        
-                        // start the capture
+                
+                // start the capture
                 self.startCaptureSession()
             }
         }
@@ -124,9 +133,12 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     
     func startCaptureSession(){
         // Start running the session on a global queue
+        self.session.startRunning()
         
-            self.session.startRunning()
-        
+    }
+    func teardownAVCapture() {
+        previewLayer.removeFromSuperlayer()
+        previewLayer = nil
     }
     public func exifOrientationFromDeviceOrientation() -> CGImagePropertyOrientation {
         let curDeviceOrientation = UIDevice.current.orientation

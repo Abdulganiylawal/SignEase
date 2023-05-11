@@ -4,13 +4,11 @@ import Vision
 
 
 extension CameraViewController{
-  
-    
-//    @discardableResult
+    @discardableResult
     func setupVision() -> NSError?{
         let error: NSError! = nil
         
-        guard let modelURL = Bundle.main.url(forResource: "ASLDetector", withExtension: "mlmodelc") else {
+        guard let modelURL = Bundle.main.url(forResource: "ASLDetector1", withExtension: "mlmodelc") else {
             return NSError(domain: "VisionObjectRecognitionViewController", code: -1, userInfo: [NSLocalizedDescriptionKey: "Model file is missing"])
         }
         do{
@@ -20,11 +18,12 @@ extension CameraViewController{
                     // perform all the UI updates on the main queue
                     if let results = request.results {
                         self.drawVisionRequestResults(results)
+                        print(results)
                     }
                 })
             })
             self.requests = [objectRecognition]
-            
+     
         }catch let error as NSError {
             print("Model loading went wrong: \(error)")
         }
