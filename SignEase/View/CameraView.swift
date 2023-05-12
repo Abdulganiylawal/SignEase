@@ -2,6 +2,7 @@ import AVFoundation
 import SwiftUI
 import UIKit
 import Vision
+import FirebaseStorage
 
 struct CameraView: UIViewRepresentable {
     func makeUIView(context: Context) -> UIView {
@@ -16,16 +17,17 @@ struct CameraView: UIViewRepresentable {
 
 class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     // MARK: - Properties
-    
+//    var imageView:UIImage! = nil
     private var session: AVCaptureSession!
     private var previewLayer: AVCaptureVideoPreviewLayer!
     var bufferSize: CGSize = .zero
     var rootLayer: CALayer!
     var detectionOverlay: CALayer! = nil
-    
     // Vision parts
     var requests = [VNRequest]()
-    
+   
+   
+
     private let videoDataOutput = AVCaptureVideoDataOutput()
     private let videoDataOutputQueue = DispatchQueue(label: "VideoDataOutput", qos: .userInitiated, autoreleaseFrequency: .workItem)
     
@@ -72,15 +74,16 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
             
             // Create a capture session
             self.session = AVCaptureSession()
-            
+            self.session.beginConfiguration()
+            self.session.sessionPreset = AVCaptureSession.Preset.high
             // Create a capture device input
-            guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
+            guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front),
                   let deviceInput = try? AVCaptureDeviceInput(device: captureDevice),
                   self.session.canAddInput(deviceInput) else {
                 print("Failed to create capture device input.")
                 return
             }
-            self.session.beginConfiguration()
+           
         
             
             // Add a video data input
@@ -139,24 +142,5 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     func teardownAVCapture() {
         previewLayer.removeFromSuperlayer()
         previewLayer = nil
-    }
-    public func exifOrientationFromDeviceOrientation() -> CGImagePropertyOrientation {
-        let curDeviceOrientation = UIDevice.current.orientation
-        let exifOrientation: CGImagePropertyOrientation
-        
-        switch curDeviceOrientation {
-        case UIDeviceOrientation.portraitUpsideDown:  // Device oriented vertically, home button on the top
-            exifOrientation = .left
-        case UIDeviceOrientation.landscapeLeft:       // Device oriented horizontally, home button on the right
-            exifOrientation = .upMirrored
-        case UIDeviceOrientation.landscapeRight:      // Device oriented horizontally, home button on the left
-            exifOrientation = .down
-        case UIDeviceOrientation.portrait:            // Device oriented vertically, home button on the bottom
-            exifOrientation = .up
-        default:
-            exifOrientation = .up
-        }
-        return exifOrientation
-    }
-    
+    }    
 }
