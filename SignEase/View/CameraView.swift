@@ -77,7 +77,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
             self.session.beginConfiguration()
             self.session.sessionPreset = AVCaptureSession.Preset.high
             // Create a capture device input
-            guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front),
+            guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
                   let deviceInput = try? AVCaptureDeviceInput(device: captureDevice),
                   self.session.canAddInput(deviceInput) else {
                 print("Failed to create capture device input.")

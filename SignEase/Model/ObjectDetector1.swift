@@ -68,11 +68,11 @@ extension CameraViewController:ObservableObject{
         guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else {
             return
         }
-        let uiImage = UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .upMirrored)
-        let imageRequestHandler = VNImageRequestHandler(cgImage: uiImage.cgImage!, orientation: .leftMirrored, options: [:])
+        let uiImage = UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
+        let imageRequestHandler = VNImageRequestHandler(cgImage: uiImage.cgImage!, orientation: .right, options: [:])
         do {
 
-//            print("Image width: \(uiImage.size.width ), Image height: \(uiImage.size.height)")
+
             try imageRequestHandler.perform(self.requests)
         } catch {
             print(error)
