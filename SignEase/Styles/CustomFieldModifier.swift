@@ -39,3 +39,45 @@ extension View {
         self.modifier(TextFieldModifier(icon: icon))
     }
 }
+
+extension View {
+    func backgroundColor(opacity: Double = 0.6) -> some View {
+        self.modifier(BackgroundColor(opacity: opacity))
+    }
+}
+
+
+struct BackgroundColor: ViewModifier {
+    var opacity: Double = 0.6
+    @Environment(\.colorScheme) var colorScheme
+    
+    func body(content: Content) -> some View {
+        content
+            .overlay(
+                Color("Background")
+                    .opacity(colorScheme == .dark ? opacity : 0)
+                    .blendMode(.overlay)
+                    .allowsHitTesting(false)
+            )
+    }
+}
+
+struct BackgroundStyle: ViewModifier {
+    var cornerRadius: CGFloat = 20
+    var opacity: Double = 0.6
+    
+    func body(content: Content) -> some View {
+        content
+            .backgroundColor(opacity: opacity)
+            .cornerRadius(cornerRadius)
+            .modifier(StrokeStyle(cornerRadius: cornerRadius))
+    }
+}
+
+extension View {
+    func backgroundStyle(cornerRadius: CGFloat = 20, opacity: Double = 0.6) -> some View {
+        self.modifier(BackgroundStyle(cornerRadius: cornerRadius, opacity: opacity))
+    }
+}
+
+

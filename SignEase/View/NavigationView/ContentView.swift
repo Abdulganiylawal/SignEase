@@ -1,27 +1,29 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var showSignInView: Bool = false
+    @State private var showSignUpView: Bool = false
+    
+    
     @Binding var SignInView:Bool
     var body: some View {
         ZStack{
             if #available(iOS 16.0, *) {
                 NavigationStack{
-                    if self.showSignInView == true {
-                        SignUp(showSignInView: $showSignInView)
+                    if self.showSignUpView == true {
+                        SignUp(showSignUpView: $showSignUpView)
                     }
                     else {
-                        MainView()
+                       RootView()
                     }
-                     
                 }
             } else {
                 // Fallback on earlier versions
             }
+         
         }
         .onAppear{
             let authUser = try? Authentication.shared.getAuthUser()
-            self.showSignInView = authUser == nil
+            self.showSignUpView = authUser == nil
         }
      
     }

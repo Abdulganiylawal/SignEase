@@ -21,7 +21,7 @@ struct SignEaseApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
-            ContentView(SignInView: .constant(false)).preferredColorScheme(.light)
+            ContentView(SignInView: .constant(false))
         }
     }
 }
