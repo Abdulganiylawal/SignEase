@@ -15,9 +15,10 @@ struct RootView: View {
                 if #available(iOS 16.0, *) {
                     switch selectedTab {
                     case .chat:
-                        ProfileView()
+                        CameraView()
+                 
                     case .account:
-                        AccountView()
+                        ProfileView()
                     }
                 } else {
                     // Fallback on earlier versions

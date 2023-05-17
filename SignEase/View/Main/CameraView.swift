@@ -23,10 +23,13 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     var bufferSize: CGSize = .zero
     var rootLayer: CALayer!
     var detectionOverlay: CALayer! = nil
+    
     // Vision parts
     var requests = [VNRequest]()
    
+   // Firebase part
    
+    
 
     private let videoDataOutput = AVCaptureVideoDataOutput()
     private let videoDataOutputQueue = DispatchQueue(label: "VideoDataOutput", qos: .userInitiated, autoreleaseFrequency: .workItem)
@@ -58,6 +61,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     // MARK: - Private Methods
     
@@ -114,19 +118,23 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
                     print(error)
                 }
                 self.session.commitConfiguration()
-                // Create a preview layer
-                self.previewLayer = AVCaptureVideoPreviewLayer(session: self.session)
-                self.previewLayer.videoGravity = .resizeAspectFill
-                // Add the preview layer to the view
-                
-                self.rootLayer = self.view.layer
-                print(self.view.layer)
-                self.previewLayer.frame = self.rootLayer.bounds
-                self.rootLayer.addSublayer(self.previewLayer)
-                self.setupLayers()
-                self.updateLayerGeometry()
-                
-                self.setupVision()
+         
+              
+              
+                DispatchQueue.main.async {
+                    // Create a preview layer
+                    self.previewLayer = AVCaptureVideoPreviewLayer(session: self.session)
+                    self.previewLayer.videoGravity = .resizeAspectFill
+                    // Add the preview layer to the view
+                    self.rootLayer = self.view.layer
+                    self.previewLayer.frame = self.rootLayer.bounds
+                    self.rootLayer.addSublayer(self.previewLayer)
+                    // Calling the necessary functions
+                    self.setupLayers()
+                    self.updateLayerGeometry()
+                    self.setupVision()
+                }
+             
                 
                 // start the capture
                 self.startCaptureSession()

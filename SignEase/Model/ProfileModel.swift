@@ -143,12 +143,12 @@ final class UserManager{
     }
     
     func generateDownloadURL(userId: String, path: String) async throws -> URL {
-        let storageReference = UserManager.shared.userRefrence(userId: userId).child(path)
+        let storageReference = userRefrence(userId: userId).child(path)
         let downloadURL = try await storageReference.downloadURL()
         return downloadURL
     }
     
-    enum UploadError: Error {
-        case imageConversionFailed
-    }
+        enum UploadError: Error {
+            case imageConversionFailed
+        }
 }

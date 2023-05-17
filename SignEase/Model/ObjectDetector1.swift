@@ -63,21 +63,40 @@ extension CameraViewController:ObservableObject{
         // Create a CIImage from the pixel buffer
         let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
 
-        // Create a UIImage from the CIImage
-        let context = CIContext()
-        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else {
-            return
-        }
-        let uiImage = UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
-        let imageRequestHandler = VNImageRequestHandler(cgImage: uiImage.cgImage!, orientation: .right, options: [:])
+//        // Create a UIImage from the CIImage
+//        let context = CIContext()
+//        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else {
+//            return
+//        }
+//        let uiImage = UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .right)
+//
+////        let error = uploadImageToStorage(image: uiImage)
+////        print(error)
+        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
         do {
-
-
             try imageRequestHandler.perform(self.requests)
         } catch {
             print(error)
         }
     }
+//    
+//    func uploadImageToStorage(image: UIImage) -> Error  {
+//        guard let imageData = image.jpegData(compressionQuality: 0.7) else {
+//            return (UploadError.imageConversionFailed)
+//        }
+//        let metadata = StorageMetadata()
+//        metadata.contentType = "image/png"
+//        let fileName = "\(UUID().uuidString).png"
+//        let storage = Storage.storage().reference().child("ML").child(fileName)
+//        let uploadTask = storage.putData(imageData, metadata: metadata)
+//        
+//        enum UploadError: Error {
+//            case imageConversionFailed
+//     
+//        }
+//        return (UploadError.imageConversionFailed)
+//    }
+//    
     func setupLayers() {
         detectionOverlay = CALayer() // container layer that has all the renderings of the observations
         detectionOverlay.name = "DetectionOverlay"
