@@ -18,9 +18,8 @@ struct chatItems: View {
                 AsyncImage(url: url) { image in
                     image
                         .resizable()
-                        .frame(width: 70, height: 70)
-                        .cornerRadius(40)
-                        .padding(8)
+                        .frame(width: 65, height: 65)
+                        .clipShape(Circle())
                         
                 } placeholder: {
                     ProgressView()

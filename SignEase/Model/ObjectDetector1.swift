@@ -61,7 +61,7 @@ extension CameraViewController:ObservableObject{
             return
         }
         // Create a CIImage from the pixel buffer
-        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+//        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
 
 //        // Create a UIImage from the CIImage
 //        let context = CIContext()
@@ -89,14 +89,14 @@ extension CameraViewController:ObservableObject{
 //        let fileName = "\(UUID().uuidString).png"
 //        let storage = Storage.storage().reference().child("ML").child(fileName)
 //        let uploadTask = storage.putData(imageData, metadata: metadata)
-//        
+//
 //        enum UploadError: Error {
 //            case imageConversionFailed
-//     
+//
 //        }
 //        return (UploadError.imageConversionFailed)
 //    }
-//    
+//
     func setupLayers() {
         detectionOverlay = CALayer() // container layer that has all the renderings of the observations
         detectionOverlay.name = "DetectionOverlay"

@@ -8,17 +8,16 @@ struct ChatView: View {
     var body: some View {
         NavigationView {
             List {
-                
-                ForEach(viewModel.chatListItems) { chatItem in
-                    Section {
+                ForEach(viewModel.chatListItems,id: \.id) { chatItem in
                         if let username = chatItem.userName,let url = chatItem.url {
                             chatItems(userName: username,url: URL(string: url))
                         } else {
                             chatItems()
                         }
-                    }
                 }
+                .listRowSeparator(.hidden)
             }
+          
             .navigationTitle("Chats")
             .listStyle(.plain)
             .toolbar {
@@ -36,12 +35,7 @@ struct ChatView: View {
             }
             .onAppear {
                 Task {
-                    do {
-//                        viewModel.populateChatListItems()
-                        try await profileData.loadCurrentUser()
-                    } catch {
-                        print("Error loading current user: \(error)")
-                    }
+                   ChatListViewModel()
                 }
             }
         }

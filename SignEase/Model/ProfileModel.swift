@@ -10,7 +10,6 @@ final class ProfileModal: ObservableObject{
     func loadCurrentUser() async throws {
         let authResult = try  Authentication.shared.getAuthUser()
         self.user = try await UserManager.shared.getUser(userId: authResult.uid)
-
     }
 }
 

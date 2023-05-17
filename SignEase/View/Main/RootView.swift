@@ -18,6 +18,8 @@ struct RootView: View {
                         ChatView()
                     case .account:
                         AccountView()
+                       
+                        
                     }
                 } else {
                     // Fallback on earlier versions

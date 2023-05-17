@@ -108,6 +108,11 @@ struct AccountView: View {
             NavigationLink {} label: {
                 Label("Chat History", systemImage: "message")
             }
+            NavigationLink {
+                FriendView()
+            } label: {
+                Label("Friends", systemImage: "person.3")
+            }
         }
         .listRowSeparator(.automatic)
     }
