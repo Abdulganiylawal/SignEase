@@ -10,13 +10,16 @@
 		10064A1829E5904E0085B100 /* CommunicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10064A1729E5904E0085B100 /* CommunicatorView.swift */; };
 		10064A1B29E590FB0085B100 /* AugmentedReality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10064A1A29E590FB0085B100 /* AugmentedReality.swift */; };
 		100FD48429D472700016184B /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100FD48329D472700016184B /* CameraView.swift */; };
+		105CE3C92A1504A000E44634 /* NewChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105CE3C82A1504A000E44634 /* NewChatView.swift */; };
+		105CE3CB2A15067F00E44634 /* ChatListItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105CE3CA2A15067F00E44634 /* ChatListItems.swift */; };
+		105CE3CD2A15158400E44634 /* chatItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105CE3CC2A15158400E44634 /* chatItemView.swift */; };
 		1086BDBC2A0FCDBF00B13586 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086BDBB2A0FCDBF00B13586 /* Styles.swift */; };
 		1086BDBF2A0FD4A600B13586 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086BDBE2A0FD4A600B13586 /* SignUp.swift */; };
 		1086BDC12A0FD9D500B13586 /* CustomFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086BDC02A0FD9D500B13586 /* CustomFieldModifier.swift */; };
 		1086BDC32A0FDC6300B13586 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086BDC22A0FDC6300B13586 /* Button.swift */; };
 		1086BDC72A0FE84A00B13586 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1086BDC62A0FE84A00B13586 /* GoogleService-Info.plist */; };
 		1086BDC92A0FF1A200B13586 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086BDC82A0FF1A200B13586 /* Authentication.swift */; };
-		1086BDCB2A10189200B13586 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086BDCA2A10189200B13586 /* MainView.swift */; };
+		1086BDCB2A10189200B13586 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1086BDCA2A10189200B13586 /* ChatView.swift */; };
 		10ABE6B429CF3D1400A2F705 /* SignEaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ABE6B329CF3D1400A2F705 /* SignEaseApp.swift */; };
 		10ABE6B629CF3D1400A2F705 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ABE6B529CF3D1400A2F705 /* ContentView.swift */; };
 		10ABE6B829CF3D1700A2F705 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10ABE6B729CF3D1700A2F705 /* Assets.xcassets */; };
@@ -48,13 +51,16 @@
 		10064A1729E5904E0085B100 /* CommunicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorView.swift; sourceTree = "<group>"; };
 		10064A1A29E590FB0085B100 /* AugmentedReality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedReality.swift; sourceTree = "<group>"; };
 		100FD48329D472700016184B /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		105CE3C82A1504A000E44634 /* NewChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatView.swift; sourceTree = "<group>"; };
+		105CE3CA2A15067F00E44634 /* ChatListItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListItems.swift; sourceTree = "<group>"; };
+		105CE3CC2A15158400E44634 /* chatItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatItemView.swift; sourceTree = "<group>"; };
 		1086BDBB2A0FCDBF00B13586 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		1086BDBE2A0FD4A600B13586 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		1086BDC02A0FD9D500B13586 /* CustomFieldModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFieldModifier.swift; sourceTree = "<group>"; };
 		1086BDC22A0FDC6300B13586 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		1086BDC62A0FE84A00B13586 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1086BDC82A0FF1A200B13586 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
-		1086BDCA2A10189200B13586 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		1086BDCA2A10189200B13586 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		10ABE6B029CF3D1400A2F705 /* SignEase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SignEase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10ABE6B329CF3D1400A2F705 /* SignEaseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignEaseApp.swift; sourceTree = "<group>"; };
 		10ABE6B529CF3D1400A2F705 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -113,8 +119,18 @@
 				10B7765D2A121287002CF0F1 /* SignViewData.swift */,
 				10F80BE72A0BEFC900AF0327 /* ObjectDetector1.swift */,
 				10B776682A124D9E002CF0F1 /* TabItems.swift */,
+				105CE3CA2A15067F00E44634 /* ChatListItems.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		105CE3C72A15047E00E44634 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				105CE3C82A1504A000E44634 /* NewChatView.swift */,
+				105CE3CC2A15158400E44634 /* chatItemView.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		1086BDBD2A0FCDC500B13586 /* Styles */ = {
@@ -192,6 +208,7 @@
 			children = (
 				1086BDBE2A0FD4A600B13586 /* SignUp.swift */,
 				10C0D4F02A0EBF70007668B3 /* SignIn.swift */,
+				105CE3C72A15047E00E44634 /* Chat */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -217,7 +234,7 @@
 		10CB41BF2A12612F00C28E59 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				1086BDCA2A10189200B13586 /* MainView.swift */,
+				1086BDCA2A10189200B13586 /* ChatView.swift */,
 				100FD48329D472700016184B /* CameraView.swift */,
 				10064A1A29E590FB0085B100 /* AugmentedReality.swift */,
 				10064A1729E5904E0085B100 /* CommunicatorView.swift */,
@@ -319,13 +336,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				10D0B6A42A0CBAF300570BA4 /* ASLDetector1.mlmodel in Sources */,
-				1086BDCB2A10189200B13586 /* MainView.swift in Sources */,
+				105CE3C92A1504A000E44634 /* NewChatView.swift in Sources */,
+				1086BDCB2A10189200B13586 /* ChatView.swift in Sources */,
 				1086BDBC2A0FCDBF00B13586 /* Styles.swift in Sources */,
 				1086BDBF2A0FD4A600B13586 /* SignUp.swift in Sources */,
 				10B776692A124D9E002CF0F1 /* TabItems.swift in Sources */,
 				10064A1829E5904E0085B100 /* CommunicatorView.swift in Sources */,
+				105CE3CB2A15067F00E44634 /* ChatListItems.swift in Sources */,
 				1086BDC92A0FF1A200B13586 /* Authentication.swift in Sources */,
 				10CB41BE2A125FAB00C28E59 /* RootView.swift in Sources */,
+				105CE3CD2A15158400E44634 /* chatItemView.swift in Sources */,
 				10B776722A125421002CF0F1 /* AccountView.swift in Sources */,
 				10064A1B29E590FB0085B100 /* AugmentedReality.swift in Sources */,
 				10B7766B2A124F44002CF0F1 /* PrefrenceKey.swift in Sources */,

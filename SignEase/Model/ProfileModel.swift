@@ -10,6 +10,7 @@ final class ProfileModal: ObservableObject{
     func loadCurrentUser() async throws {
         let authResult = try  Authentication.shared.getAuthUser()
         self.user = try await UserManager.shared.getUser(userId: authResult.uid)
+
     }
 }
 
@@ -19,6 +20,7 @@ struct dBUser:Codable{
     let dataCreated:Date?
     let email:String?
     let photourl:String?
+    let photoname:String?
     var name: String?
     var gender:String?
     var username: String?
@@ -29,8 +31,9 @@ struct dBUser:Codable{
         self.email = auth.email
         self.username = nil
         self.gender = nil
-        self.photourl = auth.photoUrl
+        self.photourl = nil
         self.name = nil
+        self.photoname = auth.photoname
     }
     init(
         userid: String,
@@ -39,7 +42,8 @@ struct dBUser:Codable{
         username: String? = nil,
         photourl: String? = nil,
         name: String? = nil,
-        gender:String? = nil
+        gender:String? = nil,
+        photoname:String? = nil
     ) {
         self.userid = userid
         self.dataCreated = dataCreated
@@ -47,7 +51,9 @@ struct dBUser:Codable{
         self.username = username
         self.photourl = photourl
         self.name = name
-        self.gender = nil
+        self.gender = gender
+        self.photoname = photoname
+        
     }
 }
 
@@ -103,8 +109,7 @@ final class UserManager{
             }
             else{
                 data["username"]  = "@" + username
-                print(username)
-            }
+                        }
         }
         
         if let gender = gender, !gender.isEmpty {
@@ -113,10 +118,11 @@ final class UserManager{
         
         if let image = image {
             let imageURL = try await uploadImageToStorage(image: image, userId: userId)
-            data["photourl"] = imageURL.name
             do {
-                _ = try await generateDownloadURL(userId: userId, path: imageURL.name)
-//                print("Download URL: \(downloadURL)")
+                let downloadURL = try await generateDownloadURL(userId: userId, path: imageURL.name)
+                print("Download URL: \(downloadURL)")
+                data["photourl"] = downloadURL.absoluteString
+                data["photoname"] = imageURL.name
             } catch {
                 print("Error: \(error)")
             }
@@ -126,7 +132,7 @@ final class UserManager{
     
    
     func uploadImageToStorage(image: UIImage, userId: String) async throws -> (path: String, name:String) {
-        guard let imageData = image.jpegData(compressionQuality: 0.3) else {
+        guard let imageData = image.jpegData(compressionQuality: 1) else {
             throw UploadError.imageConversionFailed
         }
         let fileName = "\(UUID().uuidString).jpeg"

@@ -60,7 +60,7 @@ struct ProfileView: View {
             .navigationTitle("Edit Profile")
             .navigationBarTitleDisplayMode(.inline)
             .listStyle(.plain)
-            .listSectionSeparator(.hidden)
+            .listRowSeparator(.automatic)
             .environment(\.defaultMinListRowHeight, 50)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {

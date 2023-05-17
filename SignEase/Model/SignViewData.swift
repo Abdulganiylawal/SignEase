@@ -14,7 +14,7 @@ final class SignViewData:ObservableObject{
             return
         }
         let returnedUserData = try await Authentication.shared.callAuth(email: text, pass: password)
-        let user = dBUser(userid: returnedUserData.uid, dataCreated: Date(), email: returnedUserData.email, username: nil,  photourl: returnedUserData.photoUrl,name: nil,gender: nil)
+        let user = dBUser(userid: returnedUserData.uid, dataCreated: Date(), email: returnedUserData.email, username: nil,  photourl: nil,name: nil,gender: nil,photoname: returnedUserData.photoname)
         try await UserManager.shared.createNewUser(user: user)
         
         value = true

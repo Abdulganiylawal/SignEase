@@ -16,6 +16,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
   }
 }
 
+@available(iOS 16.0, *)
 @main
 struct SignEaseApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate

@@ -50,7 +50,7 @@ struct AccountView: View {
         }.onAppear {
             Task{
                 try await ProfileData.loadCurrentUser()
-                if let user = ProfileData.user , let path = user.photourl{
+                if let user = ProfileData.user , let path = user.photoname{
                     self.url = try await UserManager.shared.generateDownloadURL(userId: user.userid, path: path)
                 }
             }
