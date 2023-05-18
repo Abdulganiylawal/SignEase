@@ -131,7 +131,7 @@ final class UserManager{
     
    
     func uploadImageToStorage(image: UIImage, userId: String) async throws -> (path: String, name:String) {
-        guard let imageData = image.jpegData(compressionQuality: 1) else {
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
             throw UploadError.imageConversionFailed
         }
         let fileName = "\(UUID().uuidString).jpeg"

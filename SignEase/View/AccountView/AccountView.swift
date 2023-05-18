@@ -11,7 +11,7 @@ struct AccountView: View {
     @State private var url:URL?
     var body: some View {
         
-        NavigationStack{
+        NavigationStack(){
             List{
                 Section{
                     profile
@@ -98,6 +98,7 @@ struct AccountView: View {
                 ProfileView()
             } label: {
                 Label("Profile Settings", systemImage: "gear")
+                    
             }
             NavigationLink {} label: {
                 Label("Chat History", systemImage: "message")
@@ -105,7 +106,13 @@ struct AccountView: View {
             NavigationLink {
                 FriendView()
             } label: {
-                Label("Friends", systemImage: "person.3")
+                Label("Add Friends", systemImage: "person.badge.plus")
+                
+            }
+            NavigationLink {
+              
+            } label: {
+                Label("Friends List", systemImage: "person.3")
             }
         }
         .listRowSeparator(.automatic)

@@ -11,7 +11,6 @@ struct ProfileView: View {
     @State private var selectedImage: UIImage?
     @State private var avatarItem: PhotosPickerItem?
     @State private var avatarImage: Image?
-    @StateObject private var ProfileData = ProfileModal()
     @State private var image:UIImage?
     @Environment(\.presentationMode) var presentationMode
     let genderOptions = ["Male", "Female", "Other"]
@@ -70,7 +69,6 @@ struct ProfileView: View {
                             Task{
                                 do{
                                     try await UserManager.shared.UpdateDb(userId: Authentication.shared.getAuthUser().uid, username: userName, name: name, gender: selectedGender,image: image)
-                                    try await ProfileData.loadCurrentUser()
                                 }
                                 catch{
                                     print(error)

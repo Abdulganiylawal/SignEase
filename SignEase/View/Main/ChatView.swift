@@ -3,7 +3,6 @@ import SwiftUI
 @available(iOS 16.0, *)
 struct ChatView: View {
     @State private var showNewChatView = false
-    @StateObject private var profileData = ProfileModal()
     @StateObject private var viewModel = ChatListViewModel()
     
     var body: some View {

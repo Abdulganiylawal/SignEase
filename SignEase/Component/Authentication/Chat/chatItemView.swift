@@ -10,7 +10,6 @@ import SwiftUI
 struct chatItems: View {
     var userName:String = "ss"
     var message: String = "Hello"
-    @StateObject private var ProfileData = ProfileModal()
     @State var url:URL? = nil
     var body: some View {
         HStack{

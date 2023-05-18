@@ -19,30 +19,26 @@ final class searchManager:ObservableObject{
     private init (){}
     var users: [SearchData]? = []
     let db = Firestore.firestore()
+    var usersCount:Any?
     
-    func searchUsers(value: String)  {
-        if value.isEmpty {
-            users = []
-            return
-        }
-        
+    func searchUsers(value: String) async throws -> Any? {
         let query = db.collection("Users").whereField("username", isGreaterThanOrEqualTo: value)
-        query.getDocuments { snapshot, error in
-            if let error = error {
-                print("Error searching users: \(error.localizedDescription)")
-                return
-            }
-            else{
-                for document in snapshot!.documents {
+            do {
+                let snapshot = try await query.getDocuments()
+                for document in snapshot.documents {
                     let documentData = document.data()
-                    self.users?.append(SearchData(email: documentData["email"] as? String, photourl: documentData["photourl"] as? String, username: documentData["username"] as? String, name:(documentData["name"] as? String)))
+                    self.users?.append(SearchData(email: documentData["email"] as? String, photourl: documentData["photourl"] as? String, username: documentData["username"] as? String, name: documentData["name"] as? String))
                 }
             }
-
-            guard let _ = snapshot?.documents else {
-                print("No documents found")
-                return
-            }
+        
+        let countQuery = query.count
+        do {
+            let snapshot = try await countQuery.getAggregation(source: .server)
+            usersCount = snapshot.count
+            print(snapshot.count)
+        } catch {
+            print(error);
         }
+        return usersCount
     }
 }
