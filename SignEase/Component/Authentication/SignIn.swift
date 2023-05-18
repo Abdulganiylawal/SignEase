@@ -4,7 +4,6 @@ import Firebase
 @available(iOS 16.0, *)
 struct SignIn: View {
     @StateObject private var viewModal = SignViewData()
-    @Binding var showSignUpView: Bool
     @State private var SignUpView = false
     @State private var mainView = false
     var body: some View {
@@ -47,15 +46,13 @@ struct SignIn: View {
                     Task{ ()
                         do{
                             try await viewModal.signIn()
-                            if viewModal.value == true{
+              
                                 mainView.toggle()
-                            }
-                            return
                         
                         }
                         catch{
                           
-                                mainView.toggle()
+                                print(error)
                             
                         }
                     }
@@ -88,7 +85,7 @@ struct SignIn: View {
                 }
                 .fullScreenCover(isPresented:$SignUpView){
                         NavigationStack{
-                            SignUp(showSignUpView: .constant(true))
+                            SignUp()
                         }
                 }.padding(.leading,20)
             }.padding(15)
@@ -107,6 +104,6 @@ struct SignIn: View {
 @available(iOS 16.0, *)
 struct SignIn_Previews: PreviewProvider {
     static var previews: some View {
-        SignIn(showSignUpView: .constant(false))
+        SignIn()
     }
 }

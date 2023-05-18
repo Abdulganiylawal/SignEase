@@ -8,7 +8,6 @@ import FirebaseAuth
 @available(iOS 16.0, *)
 struct SignUp: View {
    @StateObject private var viewModal = SignViewData()
-    @Binding var showSignUpView: Bool
     @State private var mainView = false
     @State private var SignInView = false
     var body: some View {
@@ -50,10 +49,9 @@ struct SignUp: View {
                     Task{
                         do{
                             try await viewModal.signUp()
-                            if viewModal.value == true{
+                 
                                 mainView.toggle()
-                            }
-                            return
+                           
                         }
                         catch {
                         print(error)
@@ -88,7 +86,7 @@ struct SignUp: View {
                 }
                 .fullScreenCover(isPresented:$SignInView){
                         NavigationStack{
-                            SignIn(showSignUpView: .constant(false))
+                            SignIn()
                         }
                 }
                 .padding(.leading,20)
@@ -107,7 +105,7 @@ struct SignUp: View {
 @available(iOS 16.0, *)
     struct SignUp_Previews: PreviewProvider {
         static var previews: some View {
-            SignUp(showSignUpView: .constant(false))
+            SignUp()
         }
     }
     

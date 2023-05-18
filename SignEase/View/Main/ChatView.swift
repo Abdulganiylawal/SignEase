@@ -1,12 +1,13 @@
 import SwiftUI
 
+@available(iOS 16.0, *)
 struct ChatView: View {
     @State private var showNewChatView = false
     @StateObject private var profileData = ProfileModal()
     @StateObject private var viewModel = ChatListViewModel()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 ForEach(viewModel.chatListItems,id: \.id) { chatItem in
                         if let username = chatItem.userName,let url = chatItem.url {
@@ -43,7 +44,7 @@ struct ChatView: View {
 }
 
 
-
+@available(iOS 16.0, *)
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
         ChatView()

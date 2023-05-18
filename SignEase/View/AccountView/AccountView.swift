@@ -1,15 +1,9 @@
 import SwiftUI
 
-@MainActor
-final class MainViewModel:ObservableObject{
-    func SignOut()throws{
-        try Authentication.shared.signOut()
-    }
-}
 
 @available(iOS 16.0, *)
 struct AccountView: View {
-    @StateObject private var viewModal = MainViewModel()
+
     @State private var signup = false
     
     @StateObject private var ProfileData = ProfileModal()
@@ -29,7 +23,7 @@ struct AccountView: View {
                     Button {
                         Task{
                             do{
-                                try viewModal.SignOut()
+                                try Authentication.shared.signOut()
                                 signup.toggle()
                             }
                             catch{
@@ -41,7 +35,7 @@ struct AccountView: View {
                             .frame(maxWidth: .infinity)
                     }
                     .fullScreenCover(isPresented:$signup ) {
-                        SignUp(showSignUpView: $signup)
+                        SignUp()
                         
                     }
                 }

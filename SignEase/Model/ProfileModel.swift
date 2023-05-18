@@ -20,9 +20,9 @@ struct dBUser:Codable{
     let email:String?
     let photourl:String?
     let photoname:String?
-    var name: String?
-    var gender:String?
-    var username: String?
+    let name: String?
+    let gender:String?
+    let username: String?
     
     init(auth:AuthDataResultModel){
         self.userid = auth.uid
