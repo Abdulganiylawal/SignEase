@@ -8,8 +8,19 @@
 import SwiftUI
 
 struct FriendsView: View {
+    @StateObject var FriendsData = FriendsModal()
     var body: some View {
+        
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            .onAppear{
+                Task{
+                    do{
+                        try await FriendsData.loadCurrentUser()
+                    }catch{
+                     print(error)
+                    }
+                }
+            }
     }
 }
 

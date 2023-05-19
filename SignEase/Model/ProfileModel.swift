@@ -92,8 +92,7 @@ final class UserManager{
     func getUser(userId:String) async throws -> dBUser{
         try await userDocument(userId: userId).getDocument(as:dBUser.self,decoder:decoder)
     }
-    
-    
+
     func UpdateDb(userId: String, username: String?, name: String?, gender: String?, image: UIImage?) async throws {
         var data: [String: Any] = [:]
         
