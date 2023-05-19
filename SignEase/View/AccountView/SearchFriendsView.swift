@@ -5,39 +5,32 @@ import FirebaseFirestore
 
 @available(iOS 16.0, *)
 
-struct FriendView: View {
+struct SearchFreindsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var searchText: String = ""
     @State var usersCount: Any?
     @State var textLen: Int?
-    
+    @State var Friends: [friendsDb]? = []
     init() {
         _textLen = State(initialValue: searchText.count)
     }
-    
     var body: some View {
         NavigationStack {
             Search
                 .padding()
             List {
-                ForEach(Array(searchManager.shared.users!), id: \.id) { result in
-                    if let photoURLString = result.photourl, let url = URL(string: photoURLString) {
-                        SearchResultView(userName: result.username, name: result.name, url: url)
-                            .swipeActions(edge: .trailing) {
-                                Button(action: {
-                                    // Perform action for swipe action
-                                    print("Swiped: \(String(describing: result.username))")
-                                }) {
-                                    Label("Add Friend", systemImage: "person.badge.plus")
-                                }
-                                .tint(.blue)
+                searchResultsListView()
+                    .id(usersCount as? AggregateQuery)
+                    .padding()
+                if let friends = Friends.wrappedValue, !friends.isEmpty {
+                    Section(header: Text("Added Friends")) {
+                        ForEach(friends, id: \.id) { friend in
+                            if let photoURLString = friend.photourl, let url = URL(string: photoURLString) {
+                                SearchResultView(userName: friend.username, name: friend.name, url: url)
                             }
-                    } else {
-                        EmptyView()
+                        }
                     }
                 }
-                .id(usersCount as? AggregateQuery)
-                .padding()
             }
             .padding(.top)
             .navigationTitle("Add Friend")
@@ -60,10 +53,12 @@ struct FriendView: View {
             self.searchText = ""
             searchManager.shared.users = []
             self.usersCount = 0
+            
         }
         .safeAreaInset(edge: .bottom) {
             VStack {}.frame(height: 44)
         }
+        
     }
     
     var Search: some View {
@@ -101,12 +96,33 @@ struct FriendView: View {
             }
         }
     }
+    
+    func searchResultsListView() -> some View {
+        ForEach(Array(searchManager.shared.users!), id: \.id) { result in
+            if let photoURLString = result.photourl, let url = URL(string: photoURLString) {
+                SearchResultView(userName: result.username, name: result.name, url: url)
+                    .swipeActions(edge: .trailing) {
+                        Button(action: {
+                            Task {
+                                let result:friendsDb =   FriendManager.shared.addFriend(friendId: result.UserId, username: result.username, name: result.name, image: result.photourl)
+                                Friends?.append(result)
+                            }}) {
+                                Label("", systemImage: "person.badge.plus")
+                            }
+                            .tint(.blue)
+                    }
+            } else {
+                EmptyView()
+            }
+        }
+        .padding()
+    }
 }
 
 @available(iOS 16.0, *)
-struct FriendView_Previews: PreviewProvider {
+struct SearchFriends_Previews: PreviewProvider {
     static var previews: some View {
-        FriendView()
+        SearchFreindsView()
     }
 }
 

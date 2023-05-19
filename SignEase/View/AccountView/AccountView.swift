@@ -104,13 +104,13 @@ struct AccountView: View {
                 Label("Chat History", systemImage: "message")
             }
             NavigationLink {
-                FriendView()
+                SearchFreindsView()
             } label: {
                 Label("Add Friends", systemImage: "person.badge.plus")
                 
             }
             NavigationLink {
-              
+                FriendsView()
             } label: {
                 Label("Friends List", systemImage: "person.3")
             }

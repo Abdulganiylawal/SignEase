@@ -91,7 +91,6 @@ final class UserManager{
     
     func getUser(userId:String) async throws -> dBUser{
         try await userDocument(userId: userId).getDocument(as:dBUser.self,decoder:decoder)
-        
     }
     
     

@@ -7,10 +7,11 @@ import FirebaseFirestore
 
 struct SearchData: Identifiable,Codable{
     var id = UUID()
-    let email:String?
-    let photourl:String?
-    let username: String?
-    let name:String?
+    var UserId:String?
+    var photourl:String?
+    var username: String?
+    var name:String?
+    
 }
 
 
@@ -27,7 +28,7 @@ final class searchManager:ObservableObject{
                 let snapshot = try await query.getDocuments()
                 for document in snapshot.documents {
                     let documentData = document.data()
-                    self.users?.append(SearchData(email: documentData["email"] as? String, photourl: documentData["photourl"] as? String, username: documentData["username"] as? String, name: documentData["name"] as? String))
+                    self.users?.append(SearchData(UserId: documentData["userid"] as? String, photourl: documentData["photourl"] as? String, username: documentData["username"] as? String, name: documentData["name"] as? String))
                 }
             }
         

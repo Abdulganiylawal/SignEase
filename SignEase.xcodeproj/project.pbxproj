@@ -13,7 +13,7 @@
 		105CE3C92A1504A000E44634 /* NewChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105CE3C82A1504A000E44634 /* NewChatView.swift */; };
 		105CE3CB2A15067F00E44634 /* ChatListItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105CE3CA2A15067F00E44634 /* ChatListItems.swift */; };
 		105CE3CD2A15158400E44634 /* chatItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105CE3CC2A15158400E44634 /* chatItemView.swift */; };
-		105CE3CF2A15495300E44634 /* FriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105CE3CE2A15494700E44634 /* FriendView.swift */; };
+		105CE3CF2A15495300E44634 /* SearchFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105CE3CE2A15494700E44634 /* SearchFriendsView.swift */; };
 		105CE3D12A154DA900E44634 /* SearchViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105CE3D02A154DA900E44634 /* SearchViewData.swift */; };
 		1067B3DF2A16858000B34D03 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067B3DE2A16858000B34D03 /* SwiftUIView.swift */; };
 		1067B3E12A16926400B34D03 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1067B3E02A16926400B34D03 /* SearchResultView.swift */; };
@@ -47,6 +47,7 @@
 		10C0D4E92A0E799B007668B3 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 10C0D4E82A0E799B007668B3 /* FirebaseStorage */; };
 		10C0D4EB2A0E799B007668B3 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 10C0D4EA2A0E799B007668B3 /* FirebaseStorageCombine-Community */; };
 		10C0D4F12A0EBF70007668B3 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C0D4F02A0EBF70007668B3 /* SignIn.swift */; };
+		10C385BB2A1751B7003C2F4C /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C385BA2A1751B7003C2F4C /* FriendsView.swift */; };
 		10CB41BE2A125FAB00C28E59 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB41BD2A125FAB00C28E59 /* RootView.swift */; };
 		10D0B6A42A0CBAF300570BA4 /* ASLDetector1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 10D0B6A32A0CBAF300570BA4 /* ASLDetector1.mlmodel */; };
 		10F80BE82A0BEFC900AF0327 /* ObjectDetector1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F80BE72A0BEFC900AF0327 /* ObjectDetector1.swift */; };
@@ -59,7 +60,7 @@
 		105CE3C82A1504A000E44634 /* NewChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatView.swift; sourceTree = "<group>"; };
 		105CE3CA2A15067F00E44634 /* ChatListItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListItems.swift; sourceTree = "<group>"; };
 		105CE3CC2A15158400E44634 /* chatItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatItemView.swift; sourceTree = "<group>"; };
-		105CE3CE2A15494700E44634 /* FriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendView.swift; sourceTree = "<group>"; };
+		105CE3CE2A15494700E44634 /* SearchFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFriendsView.swift; sourceTree = "<group>"; };
 		105CE3D02A154DA900E44634 /* SearchViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewData.swift; sourceTree = "<group>"; };
 		1067B3DE2A16858000B34D03 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		1067B3E02A16926400B34D03 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 		10B776772A125842002CF0F1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		10C0D4D72A0E7632007668B3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10C0D4F02A0EBF70007668B3 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
+		10C385BA2A1751B7003C2F4C /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		10CB41BD2A125FAB00C28E59 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		10D0B6A32A0CBAF300570BA4 /* ASLDetector1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ASLDetector1.mlmodel; sourceTree = "<group>"; };
 		10F80BE72A0BEFC900AF0327 /* ObjectDetector1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectDetector1.swift; sourceTree = "<group>"; };
@@ -240,7 +242,8 @@
 			children = (
 				10B776712A125421002CF0F1 /* AccountView.swift */,
 				10B776772A125842002CF0F1 /* ProfileView.swift */,
-				105CE3CE2A15494700E44634 /* FriendView.swift */,
+				105CE3CE2A15494700E44634 /* SearchFriendsView.swift */,
+				10C385BA2A1751B7003C2F4C /* FriendsView.swift */,
 			);
 			path = AccountView;
 			sourceTree = "<group>";
@@ -368,10 +371,11 @@
 				1086BDC12A0FD9D500B13586 /* CustomFieldModifier.swift in Sources */,
 				10B776672A124D53002CF0F1 /* TabBar.swift in Sources */,
 				10B776642A12176C002CF0F1 /* ProfileModel.swift in Sources */,
+				10C385BB2A1751B7003C2F4C /* FriendsView.swift in Sources */,
 				10F80BE82A0BEFC900AF0327 /* ObjectDetector1.swift in Sources */,
 				100FD48429D472700016184B /* CameraView.swift in Sources */,
 				1067B3E12A16926400B34D03 /* SearchResultView.swift in Sources */,
-				105CE3CF2A15495300E44634 /* FriendView.swift in Sources */,
+				105CE3CF2A15495300E44634 /* SearchFriendsView.swift in Sources */,
 				10C0D4F12A0EBF70007668B3 /* SignIn.swift in Sources */,
 				10ABE6B629CF3D1400A2F705 /* ContentView.swift in Sources */,
 				105CE3D12A154DA900E44634 /* SearchViewData.swift in Sources */,
