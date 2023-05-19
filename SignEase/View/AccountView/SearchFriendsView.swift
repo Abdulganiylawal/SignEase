@@ -10,6 +10,7 @@ struct SearchFreindsView: View {
     @State var searchText: String = ""
     @State var usersCount: Any?
     @State var textLen: Int?
+    @State private var showAlert = false
     init() {
         _textLen = State(initialValue: searchText.count)
     }
@@ -20,12 +21,10 @@ struct SearchFreindsView: View {
             List {
                 searchResultsListView()
                     .id(usersCount as? AggregateQuery)
-                    .padding()
             }
-            .padding(.top)
             .navigationTitle("Add Friend")
             .navigationBarTitleDisplayMode(.inline)
-            .listStyle(.plain)
+            .listStyle(.insetGrouped)
             .listRowSeparator(.hidden)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -48,7 +47,16 @@ struct SearchFreindsView: View {
         .safeAreaInset(edge: .bottom) {
             VStack {}.frame(height: 44)
         }
-        
+        .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("Friend Alert"),
+                        message: Text("Added Friend"),
+                        primaryButton: .default(Text("OK")) {
+                            showAlert.toggle()
+                        },
+                        secondaryButton: .cancel()
+                    )
+                }
     }
     
     var Search: some View {
@@ -90,7 +98,7 @@ struct SearchFreindsView: View {
     func searchResultsListView() -> some View {
         ForEach(Array(searchManager.shared.users!), id: \.id) { result in
             if let photoURLString = result.photourl, let url = URL(string: photoURLString) {
-                SearchResultView(userName: result.username, name: result.name, url: url)
+                FriendsItemView(name: result.name ?? "Default", Username: result.username ?? "Default", url: url)
                     .swipeActions(edge: .trailing) {
                         Button(action: {
                             Task{
@@ -100,6 +108,7 @@ struct SearchFreindsView: View {
                                     print(error)
                                 }
                             }
+                            showAlert.toggle()
                         }) {
                             Label("", systemImage: "person.badge.plus")
                         }

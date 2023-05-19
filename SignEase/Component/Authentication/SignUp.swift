@@ -7,7 +7,7 @@ import FirebaseAuth
 
 @available(iOS 16.0, *)
 struct SignUp: View {
-   @StateObject private var viewModal = SignViewData()
+    @StateObject private var viewModal = SignViewData()
     @State private var mainView = false
     @State private var SignInView = false
     var body: some View {
@@ -48,24 +48,24 @@ struct SignUp: View {
                 Button {
                     Task{
                         do{
-                            try await viewModal.signUp()
-                 
+                            try await viewModal.signIn()
+                            if viewModal.value == true{
                                 mainView.toggle()
-                           
+                            }
+                            return
                         }
                         catch {
-                        print(error)
+                            print(error)
                         }
                     }
-                   
                 } label: {
                     ButtonView(title: "Create Account")
                 }
-             
+                
                 .padding(.leading,10)
                 .padding(.trailing,10)
                 .fullScreenCover(isPresented: $mainView) {
-                            RootView()
+                    RootView()
                 }
                 Divider()
                     .padding(5)
@@ -85,38 +85,38 @@ struct SignUp: View {
                     }
                 }
                 .fullScreenCover(isPresented:$SignInView){
-                        NavigationStack{
-                            SignIn()
-                        }
+                    NavigationStack{
+                        SignIn()
+                    }
                 }
                 .padding(.leading,20)
-                    }.padding(15)
-                    .frame(width: 400,height: 370)
-                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30, style: .continuous))
-                    .shadow(color: Color("Shadow").opacity(0.3), radius: 10, x: 0, y: 10)
-                    .strokeStyle(cornerRadius: 30)
-                    .padding(20)
-            }.background(
-                Image("Background 4")
-            )
-        }
+            }.padding(15)
+                .frame(width: 400,height: 370)
+                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 30, style: .continuous))
+                .shadow(color: Color("Shadow").opacity(0.3), radius: 10, x: 0, y: 10)
+                .strokeStyle(cornerRadius: 30)
+                .padding(20)
+        }.background(
+            Image("Background 4")
+        )
     }
+}
 
 @available(iOS 16.0, *)
-    struct SignUp_Previews: PreviewProvider {
-        static var previews: some View {
-            SignUp()
-        }
+struct SignUp_Previews: PreviewProvider {
+    static var previews: some View {
+        SignUp()
     }
-    
-    extension View {
-        func placeholder<Content: View>(
-            when shouldShow: Bool,
-            alignment: Alignment = .leading,
-            @ViewBuilder placeholder: () -> Content) -> some View {
-                ZStack(alignment: alignment) {
-                    placeholder().opacity(shouldShow ? 1 : 0)
-                    self
-                }
+}
+
+extension View {
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+            ZStack(alignment: alignment) {
+                placeholder().opacity(shouldShow ? 1 : 0)
+                self
             }
-    }
+        }
+}

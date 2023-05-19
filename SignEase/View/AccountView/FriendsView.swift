@@ -8,19 +8,38 @@
 import SwiftUI
 
 struct FriendsView: View {
-    @StateObject var FriendsData = FriendsModal()
+    @StateObject var friendsData = FriendsModal()
+    
     var body: some View {
-        
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-            .onAppear{
-                Task{
-                    do{
-                        try await FriendsData.loadCurrentUser()
-                    }catch{
-                     print(error)
+        HStack {
+            if friendsData.user.isEmpty {
+                Text("No friends found.")
+            } else {
+                List {
+                    ForEach(Array(friendsData.user), id: \.friendUserId) { friend in
+                        if let profileURLString = friend.friendProfileUrl,
+                           let profileURL = URL(string: profileURLString) {
+                            FriendsItemView(name: friend.friendName ?? "Default", Username: friend.friendUsername ?? "Default", url: profileURL)
+                        }
                     }
+                    
+                }.navigationTitle("Friends")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .listStyle(.insetGrouped)
+                    .listRowSeparator(.hidden)
+                    .listSectionSeparator(.hidden)
+                    .environment(\.defaultMinListRowHeight, 50)
+            }
+        }
+        .onAppear {
+            Task {
+                do {
+                    try await friendsData.loadCurrentUser()
+                } catch {
+                    print(error)
                 }
             }
+        }
     }
 }
 

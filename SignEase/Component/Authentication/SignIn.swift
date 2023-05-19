@@ -46,8 +46,10 @@ struct SignIn: View {
                     Task{ ()
                         do{
                             try await viewModal.signIn()
-              
+                            if viewModal.value == true{
                                 mainView.toggle()
+                            }
+                            return
                         
                         }
                         catch{

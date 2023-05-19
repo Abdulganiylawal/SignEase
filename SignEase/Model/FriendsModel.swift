@@ -11,7 +11,6 @@ final class FriendsModal: ObservableObject {
     func loadCurrentUser() async throws {
         let friends = try await FriendManager.shared.getFriends()
         user = Set(friends)
-        print(user.count)
     }
 }
 
@@ -21,7 +20,7 @@ struct friendsDb:Codable{
     let friendUserId: String?
     let friendUsername: String?
     let friendName: String?
-    let frienndProfileUrl:String?
+    let friendProfileUrl:String?
     let dataCreated:Date?
     init(
         dataCreated: Date? = nil,
@@ -34,7 +33,7 @@ struct friendsDb:Codable{
         self.dataCreated = dataCreated
         self.friendName = friendsName
         self.friendUserId = friendsUserId
-        self.frienndProfileUrl =  friendsProfileUrl
+        self.friendProfileUrl =  friendsProfileUrl
         self.friendUsername = friendsusername
     }
 }
@@ -44,17 +43,6 @@ final class FriendManager{
     static let shared = FriendManager()
     private init(){}
     var friends: [friendsDb] = []
-    private var decoder: Firestore.Decoder {
-        let decoder = Firestore.Decoder()
-        decoder.keyDecodingStrategy = .useDefaultKeys
-        return decoder
-    }
-    private var encoder: Firestore.Encoder {
-        let encoder = Firestore.Encoder()
-        encoder.keyEncodingStrategy = .useDefaultKeys
-        return encoder
-    }
-
     private let userCollection = Firestore.firestore().collection("Users")
 
     private func userDocument(userId:String) -> DocumentReference{
@@ -62,7 +50,7 @@ final class FriendManager{
     }
 
     func createFriendsCollection(Users: friendsDb)async throws {
-        try await userDocument(userId: Authentication.shared.getAuthUser().uid).setData(from:Users,merge: false,encoder:encoder)
+        try await userDocument(userId: Authentication.shared.getAuthUser().uid).setData(from:Users,merge: false)
     }
     
     func addFriend(friendId: String?, username: String?, name: String?, image: String?) async throws {
@@ -97,21 +85,36 @@ final class FriendManager{
         
         do {
             let userId = try Authentication.shared.getAuthUser().uid
-            try await userDocument(userId: userId).setData(data, merge: true)
+            let friendCollectionRef = userCollection.document(userId).collection("Friends")
+            
+            let querySnapshot = try await friendCollectionRef.whereField("friendUserId", isEqualTo: friendId as Any).getDocuments()
+            
+            if !querySnapshot.isEmpty {
+                print("Friend already exists")
+                return
+            }
+            
+            if userId == friendId{
+                print("Can not add this user")
+                return
+            }
+            
+            try await userDocument(userId: userId).setData(data, merge: false)
         } catch {
             print("Failed to add friend: \(error)")
+            throw error
         }
+
     }
 
     func getFriends() async throws -> [friendsDb] {
         let userId = try Authentication.shared.getAuthUser().uid
             let querySnapshot = try await userCollection.document(userId).collection("Friends").getDocuments()
             for document in querySnapshot.documents {
-                if let friendData = try? document.data(as: friendsDb.self, decoder: decoder) {
+                if let friendData = try? document.data(as: friendsDb.self) {
                     friends.append(friendData)
                 }
             }
-       
             return friends
         }
 }

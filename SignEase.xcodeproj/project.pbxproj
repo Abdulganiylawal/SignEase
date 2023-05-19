@@ -50,6 +50,7 @@
 		10C385BB2A1751B7003C2F4C /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C385BA2A1751B7003C2F4C /* FriendsView.swift */; };
 		10CB41BE2A125FAB00C28E59 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10CB41BD2A125FAB00C28E59 /* RootView.swift */; };
 		10D0B6A42A0CBAF300570BA4 /* ASLDetector1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 10D0B6A32A0CBAF300570BA4 /* ASLDetector1.mlmodel */; };
+		10E1FF812A178E1200A038AC /* FriendsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E1FF802A178E1200A038AC /* FriendsItemView.swift */; };
 		10F80BE82A0BEFC900AF0327 /* ObjectDetector1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F80BE72A0BEFC900AF0327 /* ObjectDetector1.swift */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +91,7 @@
 		10C385BA2A1751B7003C2F4C /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		10CB41BD2A125FAB00C28E59 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		10D0B6A32A0CBAF300570BA4 /* ASLDetector1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ASLDetector1.mlmodel; sourceTree = "<group>"; };
+		10E1FF802A178E1200A038AC /* FriendsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsItemView.swift; sourceTree = "<group>"; };
 		10F80BE72A0BEFC900AF0327 /* ObjectDetector1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectDetector1.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,6 +121,7 @@
 				10B7765C2A12124F002CF0F1 /* Authentication */,
 				1086BDC22A0FDC6300B13586 /* Button.swift */,
 				1067B3E02A16926400B34D03 /* SearchResultView.swift */,
+				10E1FF802A178E1200A038AC /* FriendsItemView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10E1FF812A178E1200A038AC /* FriendsItemView.swift in Sources */,
 				10D0B6A42A0CBAF300570BA4 /* ASLDetector1.mlmodel in Sources */,
 				105CE3C92A1504A000E44634 /* NewChatView.swift in Sources */,
 				1086BDCB2A10189200B13586 /* ChatView.swift in Sources */,

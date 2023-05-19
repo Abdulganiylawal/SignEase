@@ -60,18 +60,6 @@ final class UserManager{
     static let shared = UserManager()
     private init(){}
     
-    private var encoder: Firestore.Encoder {
-        let encoder = Firestore.Encoder()
-        encoder.keyEncodingStrategy = .useDefaultKeys
-        return encoder
-    }
-    
-    private var decoder: Firestore.Decoder {
-        let decoder = Firestore.Decoder()
-        decoder.keyDecodingStrategy = .useDefaultKeys
-        return decoder
-    }
-    
     private let userCollection = Firestore.firestore().collection("Users")
     
     private let storage = Storage.storage().reference()
@@ -86,11 +74,11 @@ final class UserManager{
     }
     
     func createNewUser(user:dBUser) async throws{
-        try userDocument(userId: user.userid).setData(from:user,merge: false,encoder:encoder)
+        try userDocument(userId: user.userid).setData(from:user,merge: false)
     }
     
     func getUser(userId:String) async throws -> dBUser{
-        try await userDocument(userId: userId).getDocument(as:dBUser.self,decoder:decoder)
+        try await userDocument(userId: userId).getDocument(as:dBUser.self)
     }
 
     func UpdateDb(userId: String, username: String?, name: String?, gender: String?, image: UIImage?) async throws {
@@ -123,6 +111,12 @@ final class UserManager{
             } catch {
                 print("Error: \(error)")
             }
+        }
+        let db = Firestore.firestore()
+        let querySnapshot = try await db.collection("Users").whereField("username", isEqualTo: username!).getDocuments()
+        if !querySnapshot.isEmpty{
+            print("Already exist this username")
+            return
         }
         try await userDocument(userId: userId).updateData(data)
     }
