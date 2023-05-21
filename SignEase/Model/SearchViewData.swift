@@ -15,7 +15,7 @@ struct SearchData: Identifiable,Codable{
 }
 
 
-final class searchManager:ObservableObject{
+final class searchManager{
     static var shared = searchManager()
     private init (){}
     var users: [SearchData]? = []
@@ -24,19 +24,20 @@ final class searchManager:ObservableObject{
     
     func searchUsers(value: String) async throws -> Any? {
         let query = db.collection("Users").whereField("username", isGreaterThanOrEqualTo: value)
-            do {
+            do { 
                 let snapshot = try await query.getDocuments()
                 for document in snapshot.documents {
                     let documentData = document.data()
                     self.users?.append(SearchData(UserId: documentData["userid"] as? String, photourl: documentData["photourl"] as? String, username: documentData["username"] as? String, name: documentData["name"] as? String))
                 }
+            }catch{
+                print(error)
             }
         
         let countQuery = query.count
         do {
             let snapshot = try await countQuery.getAggregation(source: .server)
             usersCount = snapshot.count
-            print(snapshot.count)
         } catch {
             print(error);
         }

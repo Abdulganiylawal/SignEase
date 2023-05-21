@@ -4,7 +4,6 @@ import FirebaseFirestoreSwift
 import FirebaseStorage
 
 @MainActor
-
 final class FriendsModal: ObservableObject {
     @Published private(set) var user: Set<friendsDb> = []
 
@@ -15,51 +14,76 @@ final class FriendsModal: ObservableObject {
 }
 
 
+class AlertManager: ObservableObject {
+    @Published var alertMessage: String = ""
+    
+    func showAlert(message: String) {
+        alertMessage = message
+    }
+}
 
-struct friendsDb:Codable{
+struct friendsDb: Codable, Hashable {
     let friendUserId: String?
     let friendUsername: String?
     let friendName: String?
-    let friendProfileUrl:String?
-    let dataCreated:Date?
+    let friendProfileUrl: String?
+    let dataCreated: Date?
+    
     init(
         dataCreated: Date? = nil,
-        friendsName:String? = nil,
-        friendsUserId:String? = nil,
-        friendsProfileUrl:String? = nil,
-        friendsusername:String? = nil
+        friendName: String? = nil,
+        friendUserId: String? = nil,
+        friendProfileUrl: String? = nil,
+        friendUsername: String? = nil
     ) {
-
         self.dataCreated = dataCreated
-        self.friendName = friendsName
-        self.friendUserId = friendsUserId
-        self.friendProfileUrl =  friendsProfileUrl
-        self.friendUsername = friendsusername
+        self.friendName = friendName
+        self.friendUserId = friendUserId
+        self.friendProfileUrl = friendProfileUrl
+        self.friendUsername = friendUsername
     }
 }
 
 @MainActor
-final class FriendManager{
+final class FriendManager {
     static let shared = FriendManager()
-    private init(){}
-    var friends: [friendsDb] = []
+    private init() {}
+    var alertMessages:String? = nil
+    
     private let userCollection = Firestore.firestore().collection("Users")
-
-    private func userDocument(userId:String) -> DocumentReference{
+    
+    private func userDocument(userId: String) -> DocumentReference {
         return userCollection.document(userId).collection("Friends").document()
     }
-
-    func createFriendsCollection(Users: friendsDb)async throws {
-        try await userDocument(userId: Authentication.shared.getAuthUser().uid).setData(from:Users,merge: false)
-    }
+    
     
     func addFriend(friendId: String?, username: String?, name: String?, image: String?) async throws {
-        var data: [String: Any] = [:]
-        
-        guard !friends.contains(where: { $0.friendUserId == friendId }) else {
-            print("Friend already exists.")
+        guard let userId = try? Authentication.shared.getAuthUser().uid else {
+            print("Failed to get authenticated user ID.")
             return
         }
+
+        guard userId != friendId else {
+            self.alertMessages = "Can't add yourself as a friend."
+            return
+        }
+        
+        let friendCollectionRef = userCollection.document(userId).collection("Friends")
+        let subcollectionSnapshot = try await friendCollectionRef.limit(to: 1).getDocuments()
+        let subcollectionExists = !subcollectionSnapshot.isEmpty
+        
+        if !subcollectionExists {
+            try await userCollection.document(userId).setData(["dataCreated": Date()], merge: true)
+        }
+        
+        // Check if the friend already exists
+        let querySnapshot = try await friendCollectionRef.whereField("friendUserId", isEqualTo: friendId as Any).getDocuments()
+        if !querySnapshot.isEmpty {
+            self.alertMessages = "Friend already exist"
+            return
+        }
+        
+        var data: [String: Any] = [:]
         
         if let name = name, !name.isEmpty {
             data["friendName"] = name
@@ -84,47 +108,32 @@ final class FriendManager{
         data["dataCreated"] = Date()
         
         do {
-            let userId = try Authentication.shared.getAuthUser().uid
-            let friendCollectionRef = userCollection.document(userId).collection("Friends")
-            
-            let querySnapshot = try await friendCollectionRef.whereField("friendUserId", isEqualTo: friendId as Any).getDocuments()
-            
-            if !querySnapshot.isEmpty {
-                print("Friend already exists")
-                return
-            }
-            
-            if userId == friendId{
-                print("Can not add this user")
-                return
-            }
-            
             try await userDocument(userId: userId).setData(data, merge: false)
+            self.alertMessages = "Added Friend"
         } catch {
             print("Failed to add friend: \(error)")
             throw error
         }
-
     }
 
+    
     func getFriends() async throws -> [friendsDb] {
-        let userId = try Authentication.shared.getAuthUser().uid
-            let querySnapshot = try await userCollection.document(userId).collection("Friends").getDocuments()
-            for document in querySnapshot.documents {
-                if let friendData = try? document.data(as: friendsDb.self) {
-                    friends.append(friendData)
-                }
-            }
-            return friends
+        guard let userId = try? Authentication.shared.getAuthUser().uid else {
+            print("Failed to get authenticated user ID.")
+            return []
         }
+        
+        var friends: [friendsDb] = []
+        
+        let querySnapshot = try await userCollection.document(userId).collection("Friends").getDocuments()
+        
+        for document in querySnapshot.documents {
+            if let friendData = try? document.data(as: friendsDb.self) {
+                friends.append(friendData)
+            }
+        }
+        
+        return friends
+    }
 }
 
-extension friendsDb: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(friendUserId)
-    }
-
-    static func ==(lhs: friendsDb, rhs: friendsDb) -> Bool {
-        lhs.friendUserId == rhs.friendUserId
-    }
-}

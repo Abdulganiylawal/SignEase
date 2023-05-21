@@ -48,7 +48,7 @@ struct SignUp: View {
                 Button {
                     Task{
                         do{
-                            try await viewModal.signIn()
+                            try await viewModal.signUp()
                             if viewModal.value == true{
                                 mainView.toggle()
                             }

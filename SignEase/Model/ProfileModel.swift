@@ -59,6 +59,7 @@ struct dBUser:Codable{
 final class UserManager{
     static let shared = UserManager()
     private init(){}
+    var alertManager = AlertManager()
     
     private let userCollection = Firestore.firestore().collection("Users")
     

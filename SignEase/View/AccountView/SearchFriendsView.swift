@@ -42,7 +42,6 @@ struct SearchFreindsView: View {
             self.searchText = ""
             searchManager.shared.users = []
             self.usersCount = 0
-            
         }
         .safeAreaInset(edge: .bottom) {
             VStack {}.frame(height: 44)
@@ -50,11 +49,10 @@ struct SearchFreindsView: View {
         .alert(isPresented: $showAlert) {
                     Alert(
                         title: Text("Friend Alert"),
-                        message: Text("Added Friend"),
-                        primaryButton: .default(Text("OK")) {
-                            showAlert.toggle()
-                        },
-                        secondaryButton: .cancel()
+                        message: Text(FriendManager.shared.alertMessages!),
+                        dismissButton: .default(Text("OK")) {
+                            showAlert = false
+                        }
                     )
                 }
     }
@@ -104,11 +102,12 @@ struct SearchFreindsView: View {
                             Task{
                                 do{
                                     try await        FriendManager.shared.addFriend(friendId: result.UserId, username: result.username, name: result.name, image: result.photourl)
+                                        showAlert.toggle()
                                 }catch{
                                     print(error)
                                 }
                             }
-                            showAlert.toggle()
+                            
                         }) {
                             Label("", systemImage: "person.badge.plus")
                         }
