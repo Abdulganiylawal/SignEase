@@ -6,36 +6,56 @@
 //
 
 import SwiftUI
+import StreamChat
+import StreamChatSwiftUI
 
+@available(iOS 16.0, *)
 struct RootView: View {
     @AppStorage("selectedTab") var selectedTab: Tab = .chat
+    @State var showNewChat:Bool = false
     var body: some View {
         ZStack{
             Group {
-                if #available(iOS 16.0, *) {
-                    switch selectedTab {
-                    case .chat:
-                        ChatView()
-                    case .account:
-                        AccountView()
-                       
-                        
-                    }
-                } else {
-                    // Fallback on earlier versions
+                switch selectedTab {
+                case .chat:
+                    Conversation
+                case .account:
+                    AccountView()
                 }
+                
             }
             .safeAreaInset(edge: .bottom) {
                 VStack {}.frame(height: 44)
             }
             TabBar()
         }
-      
+        
+    }
+    
+    var Conversation: some View{
+        ChatChannelListView(viewFactory: ConversationView()).navigationTitle("Chats").toolbar {
+            ToolbarItem(placement:.navigationBarLeading){
+                Button {
+                    // Tbd
+                } label: {
+                    Text("Edit")
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    showNewChat.toggle()
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                        .foregroundColor(.blue)
+                    
+                }.sheet(isPresented: $showNewChat) {
+                    NewChatView()
+                }
+            }
+        }.safeAreaInset(edge: .bottom) {
+            VStack {}.frame(height: 44)
+        }
     }
 }
 
-struct RootView_Previews: PreviewProvider {
-    static var previews: some View {
-        RootView()
-    }
-}
+

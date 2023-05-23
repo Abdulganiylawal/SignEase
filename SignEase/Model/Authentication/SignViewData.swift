@@ -1,5 +1,9 @@
 import SwiftUI
 import Firebase
+import StreamChat
+import StreamChatSwiftUI
+import FirebaseFunctions
+import FirebaseFunctionsCombineSwift
 
 final class SignViewData: ObservableObject {
     @Published var text: String = ""
@@ -22,11 +26,7 @@ final class SignViewData: ObservableObject {
         do {
             let returnedUserData = try await Authentication.shared.callAuth(email: text, password: password)
             let user = dBUser(userid: returnedUserData.uid, dataCreated: Date(), email: returnedUserData.email, username: nil, photourl: nil, name: nil, gender: nil, photoname: returnedUserData.photoname)
-     
-            
             try await UserManager.shared.createNewUser(user: user)
-      
-            
             value = !returnedUserData.uid.isEmpty
         } catch {
             print("Sign up error: \(error)")

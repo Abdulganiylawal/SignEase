@@ -7,7 +7,7 @@ struct CommunicatorView: View {
         VStack{
             CameraView()
                
-            AugmentedReality()
+   
         }
       
     }

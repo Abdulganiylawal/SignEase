@@ -10,6 +10,8 @@ import SwiftUI
 struct FriendsItemView: View {
         var name:String = "ss"
         var Username: String = "Hello"
+        var frame:CGFloat = 65
+        var padding:CGFloat = 3
         @State var url:URL? = nil
         var body: some View {
             HStack{
@@ -17,7 +19,7 @@ struct FriendsItemView: View {
                     AsyncImage(url: url) { image in
                         image
                             .resizable()
-                            .frame(width: 65, height: 65)
+                            .frame(width: frame, height: frame)
                             .clipShape(Circle())
                         
                     } placeholder: {
@@ -34,11 +36,11 @@ struct FriendsItemView: View {
                         .background(Circle().fill(.ultraThinMaterial))
                 }
                 VStack{
-                    VStack(alignment: .leading, spacing: 8){
+                    VStack(alignment: .leading, spacing: padding){
                         HStack{
                             Text(name)
                                 .fontWeight(.semibold)
-                                .padding(.top, 3)
+                                .padding(.top, padding)
                         }
                         Text(Username)
                             .foregroundColor(.blue).opacity(0.5)

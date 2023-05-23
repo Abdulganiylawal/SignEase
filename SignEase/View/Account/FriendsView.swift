@@ -9,10 +9,12 @@ import SwiftUI
 
 struct FriendsView: View {
     @StateObject var friendsData = FriendsModal()
-    
+    @State var friend:Bool = false
     var body: some View {
         HStack {
-            if friendsData.user.isEmpty {
+            if friend == true {
+                ProgressView()
+            } else if friendsData.user.isEmpty {
                 Text("No friends found.")
             } else {
                 List {
@@ -34,7 +36,9 @@ struct FriendsView: View {
         .onAppear {
             Task {
                 do {
+                    self.friend = true
                     try await friendsData.loadCurrentUser()
+                    self.friend = false
                 } catch {
                     print(error)
                 }

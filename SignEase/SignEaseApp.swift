@@ -1,28 +1,73 @@
-//
-//  SignEaseApp.swift
-//  SignEase
-//
-//  Created by Lawal Abdulganiy on 25/03/2023.
-//
-
 import SwiftUI
 import FirebaseCore
+import StreamChat
+import StreamChatSwiftUI
+import FirebaseFunctions
+import FirebaseFunctionsCombineSwift
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
-    return true
-  }
+    var streamChat: StreamChat?
+    lazy var profileData = ProfileModal()
+
+    var chatClient: ChatClient = {
+        var config = ChatClientConfig(apiKey: .init("3n2z86vjm8wc"))
+        config.applicationGroupIdentifier = "group.io.getstream.iOS.ChatDemoAppSwiftUI"
+
+        let client = ChatClient(config: config)
+        return client
+    }()
+
+    internal func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil)-> Bool {
+        FirebaseApp.configure()
+        streamChat = StreamChat(chatClient: chatClient)
+         connectUser()
+        return true
+    }
+
+    private func connectUser() {
+        let functions = Functions.functions()
+        functions.httpsCallable("ext-auth-chat-getStreamUserToken").call { [weak self] (result, error) in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+
+            guard let token = result?.data as? String else {
+                print("Invalid response data")
+                return
+            }
+
+            let streamToken = try! Token(rawValue: token)
+
+            Task {
+                do {
+                    try await self?.profileData.loadCurrentUser()
+                    if let user = self?.profileData.user,
+                       let photoUrl = user.photourl,
+                       let userId = user.userid,
+                       let username = user.username {
+                        self?.chatClient.connectUser(userInfo: .init(id: userId, name: username, imageURL: URL(string: photoUrl)), token: streamToken)
+                        print("User connected successfully!")
+                    }
+                } catch {
+                    print(error)
+                }
+            }
+        }
+    }
+
 }
 
 @available(iOS 16.0, *)
 @main
 struct SignEaseApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+//            ChatChannelListView(viewFactory: ConversationView())
         }
     }
 }

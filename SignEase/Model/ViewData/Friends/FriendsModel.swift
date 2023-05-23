@@ -58,6 +58,8 @@ final class FriendManager {
     
     
     func addFriend(friendId: String?, username: String?, name: String?, image: String?) async throws {
+        
+        
         guard let userId = try? Authentication.shared.getAuthUser().uid else {
             print("Failed to get authenticated user ID.")
             return

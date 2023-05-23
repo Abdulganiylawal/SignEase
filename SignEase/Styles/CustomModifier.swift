@@ -1,11 +1,6 @@
-//
-//  CustomFieldModifier.swift
-//  CustomFieldModifier
-//
-//  Created by Meng To on 2021-08-03.
-//
-
 import SwiftUI
+import StreamChatSwiftUI
+import StreamChat
 
 struct TextFieldModifier: ViewModifier {
     var icon: String
@@ -80,4 +75,32 @@ extension View {
     }
 }
 
+@available(iOS 16.0, *)
+struct ConvesationHeaderViewModifier:ChannelListHeaderViewModifier{
+    var title: String
+    func body(content: Content) -> some View {
+        content.toolbar{
+         ConversationHeader(title: title)
+        }
+    }
 
+}
+
+struct MessageListHeaderModifier: ChatChannelHeaderViewModifier {
+    var channel: ChatChannel
+    
+    @State private var infoScreenShown = false
+
+    
+    func body(content: Content) -> some View {
+        content.toolbar {
+            MessageListHeader(
+                viewModel: MessageListHeaderViewModal(channel: channel),
+                isInfoSheetShown: $infoScreenShown)
+        }
+        .sheet(isPresented: $infoScreenShown) {
+            ChatChannelInfoView(channel: channel)
+        }
+     
+    }
+}

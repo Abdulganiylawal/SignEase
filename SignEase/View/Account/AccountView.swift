@@ -3,11 +3,11 @@ import SwiftUI
 
 @available(iOS 16.0, *)
 struct AccountView: View {
-
+    
     @State private var signup = false
     
     @StateObject private var ProfileData = ProfileModal()
-
+    
     @State private var url:URL?
     var body: some View {
         
@@ -45,7 +45,7 @@ struct AccountView: View {
             Task{
                 try await ProfileData.loadCurrentUser()
                 if let user = ProfileData.user , let path = user.photoname{
-                    self.url = try await UserManager.shared.generateDownloadURL(userId: user.userid, path: path)
+                    self.url = try await UserManager.shared.generateDownloadURL(userId: user.userid!, path: path)
                 }
             }
         }
@@ -97,22 +97,66 @@ struct AccountView: View {
             NavigationLink {
                 ProfileView()
             } label: {
-                Label("Profile Settings", systemImage: "gear")
-                    
+                HStack{
+                    Image(systemName: "gear")
+                        .padding(.all, 5)
+                        .foregroundColor(.white)
+                        .frame(width: 35, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .background(Color(hex: "27374D"))
+                        .cornerRadius(6)
+                    Text("Profile Settings")
+                        .fontWeight(.regular)
+                        .padding(.leading, 8)
+                        .padding(.vertical, 4)
+                        
+                }
+                
             }
             NavigationLink {} label: {
-                Label("Chat History", systemImage: "message")
+                HStack{
+                    Image(systemName: "message")
+                        .padding(.all, 5)
+                        .foregroundColor(.white)
+                        .frame(width: 35, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .background(Color(hex: "025464"))
+                        .cornerRadius(6)
+                    Text("Chat History")
+                        .fontWeight(.regular)
+                        .padding(.leading, 8)
+                        .padding(.vertical, 4)
+                }
             }
             NavigationLink {
                 SearchFreindsView()
             } label: {
-                Label("Add Friends", systemImage: "person.badge.plus")
-                
+                HStack{
+                    Image(systemName: "person.badge.plus")
+                        .padding(.all, 5)
+                        .foregroundColor(.white)
+                        .frame(width: 35, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .background(Color(hex: "482121"))
+                        .cornerRadius(6)
+                    Text("Add Friends")
+                        .fontWeight(.regular)
+                        .padding(.leading, 8)
+                }
+
             }
             NavigationLink {
                 FriendsView()
             } label: {
-                Label("Friends List", systemImage: "person.3")
+                HStack{
+                    Image(systemName: "person.3")
+                        .padding(.all, 5)
+                        .foregroundColor(.white)
+                        .frame(width: 35, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .background(Color(hex: "285430"))
+                        .cornerRadius(6)
+                    Text("Friends List")
+                        .fontWeight(.regular)
+                        .padding(.leading, 8)
+                        .padding(.vertical, 4)
+                }
             }
         }
         .listRowSeparator(.automatic)

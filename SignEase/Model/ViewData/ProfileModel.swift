@@ -15,7 +15,7 @@ final class ProfileModal: ObservableObject{
 
 
 struct dBUser:Codable{
-    let userid:String
+    let userid:String?
     let dataCreated:Date?
     let email:String?
     let photourl:String?
@@ -75,7 +75,7 @@ final class UserManager{
     }
     
     func createNewUser(user:dBUser) async throws{
-        try userDocument(userId: user.userid).setData(from:user,merge: false)
+        try userDocument(userId: user.userid!).setData(from:user,merge: false)
     }
     
     func getUser(userId:String) async throws -> dBUser{
