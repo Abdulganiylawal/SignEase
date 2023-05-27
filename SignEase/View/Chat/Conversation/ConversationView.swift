@@ -14,9 +14,17 @@ class ConversationView: ViewFactory {
         ConvesationHeaderViewModifier(title: "")
     }
     
+    func makeChannelDestination() -> (ChannelSelectionInfo) -> ChatView {
+        { selectionInfo in
+            ChatView(channel: selectionInfo.channel)
+        }}
+    
     func makeChannelListItem(channel: ChatChannel, channelName: String, avatar: URL, onlineIndicatorShown: Bool, disabled: Bool, selectedChannel: Binding<ChannelSelectionInfo?>, swipedChannelId: Binding<String?>, channelDestination: @escaping (ChannelSelectionInfo) -> ChatChannelView<ConversationView>, onItemTap: @escaping (ChatChannel) -> Void, trailingSwipeRightButtonTapped: @escaping (ChatChannel) -> Void, trailingSwipeLeftButtonTapped: @escaping (ChatChannel) -> Void, leadingSwipeButtonTapped: @escaping (ChatChannel) -> Void) -> some View {
         ConversationListItems(channel: channel, conversationName: channelName, avatar: avatar, channelDestination: channelDestination, selectedChannel: selectedChannel, onItemTap: onItemTap)
     }
+    
+    
+
 }
 
 

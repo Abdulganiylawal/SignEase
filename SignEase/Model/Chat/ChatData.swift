@@ -7,25 +7,20 @@ import FirebaseCore
 import FirebaseFunctions
 import FirebaseFunctionsCombineSwift
 
-struct Messanger: Identifiable {
-    let id = UUID()
-    let sender: String
-    let text: String
+@MainActor
+final class MessageDataManager: ObservableObject {
+    func addMessage(text: String) {
+        message.append(Message(text: text))
+    }
+}
+
+struct Message: Hashable {
+    var text: String = ""
+}
+
+var message:[Message] = [
     
-}
-
-
-
-struct ChatData {
-    static var messages = [
-        Messanger(sender: "John", text: "Hello!"),
-        Messanger(sender: "Jane", text: "Hi there!"),
-        Messanger(sender: "John", text: "How are you?"),
-        Messanger(sender: "Jane", text: "I'm good, thanks!"),
-        Messanger(sender: "John", text: "Nice weather today, isn't it?"),
-        Messanger(sender: "Jane", text: "Yes, it's beautiful!")
-    ]
-}
+]
 
 class ChatManager {
     static let shared = ChatManager()
@@ -61,17 +56,17 @@ class ChatManager {
         }
     }
     func createChannelWithFriend(username: String, photourl: String, friendUserId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        var str = username
+        let str = username
         let usermame = String(str.dropFirst())
         
         print(usermame)
         
         do {
             let channelController = try chatClient.channelController(createDirectMessageChannelWith: [friendUserId],
-                                                                      isCurrentUserMember: true,
-                                                                      name: username,
-                                                                      imageURL: URL(string: photourl),
-                                                                      extraData: [:])
+                isCurrentUserMember: true,
+                name: username,
+                imageURL: URL(string: photourl),
+                extraData: [:])
             
             channelController.synchronize { error in
                 if let error = error {
@@ -87,10 +82,30 @@ class ChatManager {
             completion(.failure(error))
         }
     }
+    
+    func sendMessage(message: String, cid: ChannelId) {
+        let channelController = chatClient.channelController(for: cid)
+        channelController.createNewMessage(text: message) { result in
+            switch result {
+            case .success(let messageId):
+                print("Message sent with ID: \(messageId)")
+//                self.getMessage(messageId: messageId, channelId: cid)
+                let indices = channelController.messages.indices
+                for i in indices{
+                    print("\(channelController.messages[i].author.id): \(channelController.messages[i].text)")
+                }
+            case .failure(let error):
+                print("Error sending message: \(error)")
+            }
+        }
+    }
 
-
-    enum ChatManagerError: Error {
-        case currentUserNotFound
+    func getMessage(messageId:MessageId,channelId:ChannelId){
+        let messageController = chatClient.messageController(cid: channelId, messageId: messageId)
+        messageController.synchronize { error in
+           
+            print(error ?? messageController.message!.text)
+        }
     }
 }
 

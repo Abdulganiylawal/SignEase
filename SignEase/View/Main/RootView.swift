@@ -20,7 +20,7 @@ struct RootView: View {
                 case .chat:
                     Conversation
                 case .account:
-                    AccountView()
+                     AccountView()
                 }
                 
             }

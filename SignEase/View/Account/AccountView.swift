@@ -1,11 +1,12 @@
 import SwiftUI
-
+import StreamChat
+import StreamChatSwiftUI
 
 @available(iOS 16.0, *)
 struct AccountView: View {
     
     @State private var signup = false
-    
+
     @StateObject private var ProfileData = ProfileModal()
     
     @State private var url:URL?
@@ -46,6 +47,7 @@ struct AccountView: View {
                 try await ProfileData.loadCurrentUser()
                 if let user = ProfileData.user , let path = user.photoname{
                     self.url = try await UserManager.shared.generateDownloadURL(userId: user.userid!, path: path)
+    
                 }
             }
         }

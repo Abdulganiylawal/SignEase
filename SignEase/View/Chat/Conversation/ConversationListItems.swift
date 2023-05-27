@@ -23,11 +23,13 @@ struct ConversationListItems: View {
                     .padding(.trailing)
                     .onTapGesture {
                         onItemTap(channel)
+                    
                     }
                 
                 NavigationLink(tag: channel.channelSelectionInfo, selection: $selectedChannel) {
                     
                     channelDestination(channel.channelSelectionInfo)
+ 
                 } label: {
                     EmptyView()
                 }
