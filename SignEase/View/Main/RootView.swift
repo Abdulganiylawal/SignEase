@@ -34,13 +34,6 @@ struct RootView: View {
     
     var Conversation: some View{
         ChatChannelListView(viewFactory: ConversationView()).navigationTitle("Chats").toolbar {
-            ToolbarItem(placement:.navigationBarLeading){
-                Button {
-                    // Tbd
-                } label: {
-                    Text("Edit")
-                }
-            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     showNewChat.toggle()

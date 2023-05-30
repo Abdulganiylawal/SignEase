@@ -1,17 +1,12 @@
-//
-//  NotUserBubble.swift
-//  SignEase
-//
-//  Created by Lawal Abdulganiy on 27/05/2023.
-//
+
 
 import SwiftUI
 
 struct NotUserBubble: View {
     @State var color: Color = Color.gray
     @State var content: String = "Lorem Ipsum"
-    @State var timeStamp: Date = Date()
-    @State var username: String = "anon"
+    @State var timeStamp: String = ""
+   
     @State private var toggleTime: Bool = false
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -27,8 +22,6 @@ struct NotUserBubble: View {
                 .frame(width: UIScreen.main.bounds.size.width - 50, alignment: .leading)
             if toggleTime {
                 HStack(spacing: 0) {
-                    Text(username)
-                        .font(.system(size: 13, weight: .bold))
                     Text("\(timeStamp)")
                         .font(.system(size: 13, weight: .bold))
                     
@@ -42,6 +35,7 @@ struct NotUserBubble: View {
             }
         })
         .shadow(radius: 4)
+        .frame(maxWidth: .infinity)
     }
 }
 

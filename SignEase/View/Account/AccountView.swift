@@ -45,9 +45,8 @@ struct AccountView: View {
         }.onAppear {
             Task{
                 try await ProfileData.loadCurrentUser()
-                if let user = ProfileData.user , let path = user.photoname{
-                    self.url = try await UserManager.shared.generateDownloadURL(userId: user.userid!, path: path)
-    
+                if let user = ProfileData.user{
+                    self.url = URL(string: user.photourl!)
                 }
             }
         }
@@ -114,7 +113,9 @@ struct AccountView: View {
                 }
                 
             }
-            NavigationLink {} label: {
+            NavigationLink {
+                MessageSettingsView()
+            } label: {
                 HStack{
                     Image(systemName: "message")
                         .padding(.all, 5)
@@ -122,7 +123,7 @@ struct AccountView: View {
                         .frame(width: 35, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .background(Color(hex: "025464"))
                         .cornerRadius(6)
-                    Text("Chat History")
+                    Text("Message Settings")
                         .fontWeight(.regular)
                         .padding(.leading, 8)
                         .padding(.vertical, 4)
@@ -160,6 +161,7 @@ struct AccountView: View {
                         .padding(.vertical, 4)
                 }
             }
+        
         }
         .listRowSeparator(.automatic)
     }

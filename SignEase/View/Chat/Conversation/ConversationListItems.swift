@@ -27,7 +27,6 @@ struct ConversationListItems: View {
                     }
                 
                 NavigationLink(tag: channel.channelSelectionInfo, selection: $selectedChannel) {
-                    
                     channelDestination(channel.channelSelectionInfo)
  
                 } label: {

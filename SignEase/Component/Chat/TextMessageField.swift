@@ -1,9 +1,11 @@
 import SwiftUI
 import StreamChat
 import StreamChatSwiftUI
+import UIKit
 struct TextMessageField: View {
-    @Binding var currentMessageContent: String
-    @Binding var messages: [Message]
+    @State var currentMessageContent: String = ""
+    @ObservedObject var MessageData: MessageDataManager
+    
     var channel: ChatChannel
     
     var body: some View {
@@ -11,13 +13,12 @@ struct TextMessageField: View {
             TextField("Enter Message", text: $currentMessageContent)
                 .disableAutocorrection(true)
                 .padding(10)
+           
                
             Button(action: {
                 if (currentMessageContent != ""){
-                    messages.append(Message(text: currentMessageContent))
-                    ChatManager.shared.sendMessage(message: currentMessageContent, cid: channel.cid )
-                    currentMessageContent = ""
-                    
+                     MessageData.sendMessage(message: currentMessageContent, cid: channel.cid )
+                     currentMessageContent = ""
                 }
             }){
                 Image(systemName: "paperplane.fill")

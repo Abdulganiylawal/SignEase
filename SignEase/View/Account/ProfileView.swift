@@ -15,6 +15,7 @@ struct ProfileView: View {
     @Environment(\.presentationMode) var presentationMode
     let genderOptions = ["Male", "Female", "Other"]
     @State private var selectedGender = "Male"
+    @State private var showAlert = false
     
     var body: some View {
         
@@ -68,16 +69,25 @@ struct ProfileView: View {
                         .onTapGesture {
                             Task{
                                 do{
-                                    try await UserManager.shared.UpdateDb(userId: Authentication.shared.getAuthUser().uid, username: userName, name: name, gender: selectedGender,image: image)
+                                    try await UserManager.shared.updateDB(userId: Authentication.shared.getAuthUser().uid, username: userName, name: name, gender: selectedGender,image: image)
+                                        showAlert.toggle()
                                 }
                                 catch{
                                     print(error)
                                 }
                             }
-                            presentationMode.wrappedValue.dismiss()
+
                         }
                 }
             }
+        }   .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Edit Profile"),
+                message: Text(UserManager.shared.alertMessages!),
+                dismissButton: .default(Text("OK")) {
+                                                presentationMode.wrappedValue.dismiss()
+                }
+            )
         }
     }
     

@@ -59,7 +59,8 @@ struct dBUser:Codable{
 final class UserManager{
     static let shared = UserManager()
     private init(){}
-    var alertManager = AlertManager()
+//    var alertManager = AlertManager()
+    var alertMessages:String? = nil
     
     private let userCollection = Firestore.firestore().collection("Users")
     
@@ -82,13 +83,19 @@ final class UserManager{
         try await userDocument(userId: userId).getDocument(as:dBUser.self)
     }
 
-    func UpdateDb(userId: String, username: String?, name: String?, gender: String?, image: UIImage?) async throws {
+    func updateDB(userId: String, username: String?, name: String?, gender: String?, image: UIImage?) async throws {
+        let db = Firestore.firestore()
+        let querySnapshot = try await db.collection("Users").whereField("username", isEqualTo: username!).getDocuments()
+        if !querySnapshot.isEmpty{
+            self.alertMessages = "Already exist this username"
+            return
+        }
         var data: [String: Any] = [:]
-        
+
         if let name = name, !name.isEmpty {
             data["name"] = name
         }
-        
+
         if let username = username, !username.isEmpty {
             if username.contains("@"){
                 data["username"] = username
@@ -97,31 +104,26 @@ final class UserManager{
                 data["username"]  = "@" + username
                         }
         }
-        
+
         if let gender = gender, !gender.isEmpty {
             data["gender"] = gender
         }
-        
+
         if let image = image {
             let imageURL = try await uploadImageToStorage(image: image, userId: userId)
             do {
                 let downloadURL = try await generateDownloadURL(userId: userId, path: imageURL.name)
-                print("Download URL: \(downloadURL)")
                 data["photourl"] = downloadURL.absoluteString
                 data["photoname"] = imageURL.name
             } catch {
                 print("Error: \(error)")
             }
         }
-        let db = Firestore.firestore()
-        let querySnapshot = try await db.collection("Users").whereField("username", isEqualTo: username!).getDocuments()
-        if !querySnapshot.isEmpty{
-            print("Already exist this username")
-            return
-        }
+
         try await userDocument(userId: userId).updateData(data)
+        self.alertMessages = "Profile Edited"
     }
-    
+
    
     func uploadImageToStorage(image: UIImage, userId: String) async throws -> (path: String, name:String) {
         guard let imageData = image.jpegData(compressionQuality: 0.5) else {

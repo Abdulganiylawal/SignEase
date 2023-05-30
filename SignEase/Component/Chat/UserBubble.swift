@@ -10,7 +10,7 @@ import SwiftUI
 struct UserBubble: View {
     @State var color: Color = Color.green
     @State var content: String = "Lorem Ipsum"
-    @State var timeStamp: Date = Date()
+    @State var timeStamp: String = ""
     @State private var toggleTime: Bool = false
  
     var body: some View {
@@ -33,6 +33,7 @@ struct UserBubble: View {
             }
         })
         .shadow(radius: 4)
+        .frame(maxWidth: .infinity)
     }
 }
 

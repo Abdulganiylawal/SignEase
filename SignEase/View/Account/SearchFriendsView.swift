@@ -101,7 +101,7 @@ struct SearchFreindsView: View {
                         Button(action: {
                             Task{
                                 do{
-                                    try await        FriendManager.shared.addFriend(friendId: result.UserId, username: result.username, name: result.name, image: result.photourl)
+                                    try await  FriendManager.shared.addFriend(friendId: result.UserId, username: result.username, name: result.name, image: result.photourl)
                                         showAlert.toggle()
                                 }catch{
                                     print(error)
