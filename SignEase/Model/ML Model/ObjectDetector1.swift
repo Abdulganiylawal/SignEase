@@ -17,19 +17,22 @@ extension CameraViewController:ObservableObject{
             let visionModel = try VNCoreMLModel(for: MLModel(contentsOf: modelURL))
             let objectRecognition = VNCoreMLRequest(model: visionModel, completionHandler: { (request, error) in
                 DispatchQueue.main.async(execute: {
-                    // perform all the UI updates on the main queue
-                    if let results = request.results {
+                    if let results = request.results as? [VNRecognizedObjectObservation] {
                         self.drawVisionRequestResults(results)
-                        print(results)
+                        let recognizedObjects = results.compactMap { observation -> String? in
+                                       guard let topLabelObservation = observation.labels.first else {
+                                           return nil
+                                       }
+                                return "\(topLabelObservation.identifier)"
+                    }
+                        DetectedObjectModal.shared.recognizedObjects += recognizedObjects.joined(separator: "")
                     }
                 })
             })
             self.requests = [objectRecognition]
-
         }catch let error as NSError {
             print("Model loading went wrong: \(error)")
         }
-//        print(error!)
         return error
     }
     func drawVisionRequestResults(_ results: [Any]) {

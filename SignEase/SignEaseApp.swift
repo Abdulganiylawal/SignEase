@@ -5,17 +5,14 @@ import StreamChatSwiftUI
 import FirebaseFunctions
 import FirebaseFunctionsCombineSwift
 
-class AppDelegate: NSObject, UIApplicationDelegate, EventsControllerDelegate {
-    
+class AppDelegate: NSObject, UIApplicationDelegate {
     var streamChat: StreamChat?
     lazy var profileData = ProfileModal()
     var eventsController: EventsController!
+//    var recievedMessage = MessageDataManager()
     
- 
     var chatClient: ChatClient = {
         var config = ChatClientConfig(apiKey: .init("3n2z86vjm8wc"))
-        config.applicationGroupIdentifier = "group.io.getstream.iOS.ChatDemoAppSwiftUI"
-
         let client = ChatClient(config: config)
         return client
     }()
@@ -24,22 +21,12 @@ class AppDelegate: NSObject, UIApplicationDelegate, EventsControllerDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil)-> Bool {
         FirebaseApp.configure()
         streamChat = StreamChat(chatClient: chatClient)
+        connectUser()
         eventsController = chatClient.eventsController()
         eventsController.delegate = self
-        connectUser()
         return true
     }
-    
-    func eventsController(_ controller: EventsController, didReceiveEvent event: Event) {
-        
-        switch event {
-        case let event as MessageNewEvent:
-            print(event.message)
-        default:
-            break
-        }
-        
-    }
+  
 
     private func connectUser() {
         let functions = Functions.functions()
@@ -83,6 +70,7 @@ struct SignEaseApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+//            Struct()
 //            ChatChannelListView(viewFactory: ConversationView())
         }
     }

@@ -24,12 +24,10 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     var rootLayer: CALayer!
     var detectionOverlay: CALayer! = nil
     
+    
     // Vision parts
     var requests = [VNRequest]()
-   
-   // Firebase part
-   
-    
+
 
     private let videoDataOutput = AVCaptureVideoDataOutput()
     private let videoDataOutputQueue = DispatchQueue(label: "VideoDataOutput", qos: .userInitiated, autoreleaseFrequency: .workItem)
