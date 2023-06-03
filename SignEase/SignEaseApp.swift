@@ -5,11 +5,11 @@ import StreamChatSwiftUI
 import FirebaseFunctions
 import FirebaseFunctionsCombineSwift
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate ,EventsControllerDelegate{
     var streamChat: StreamChat?
     lazy var profileData = ProfileModal()
     var eventsController: EventsController!
-//    var recievedMessage = MessageDataManager()
+
     
     var chatClient: ChatClient = {
         var config = ChatClientConfig(apiKey: .init("3n2z86vjm8wc"))
@@ -21,12 +21,28 @@ class AppDelegate: NSObject, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil)-> Bool {
         FirebaseApp.configure()
         streamChat = StreamChat(chatClient: chatClient)
-        connectUser()
         eventsController = chatClient.eventsController()
         eventsController.delegate = self
+        connectUser()
         return true
     }
-  
+    func eventsController(_ controller: EventsController, didReceiveEvent event: Event) {
+        switch event {
+        case let event as MessageNewEvent:
+                var lastMessageStamp: String {
+                    let formatter = DateFormatter()
+                    formatter.dateStyle = .none
+                    formatter.timeStyle = .short
+                    return formatter.string(from:event.message.createdAt )
+                }
+                let message = MessageData(text: event.message.text, isMe: false, timeStamp: lastMessageStamp, CreatedAt: event.message.createdAt,usersId: event.message.author.id)
+                print(message)
+                ChatManager.shared.setRecievedMessages(messages: message)
+                NotificationCenter.default.post(name: .isTriggeredChange, object: nil)
+        default:
+            break
+        }
+    }
 
     private func connectUser() {
         let functions = Functions.functions()
@@ -69,9 +85,6 @@ struct SignEaseApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-//            Struct()
-//            ChatChannelListView(viewFactory: ConversationView())
-        }
+            ContentView()        }
     }
 }

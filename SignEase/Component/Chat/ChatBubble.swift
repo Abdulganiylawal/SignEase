@@ -2,7 +2,7 @@
 import SwiftUI
 
 struct ChatBubble: View {
-    @State var message: Message = Message(text: "")
+    @State var message: MessageData = MessageData(text: "")
     var body: some View {
         if(message.isMe == true)
         {

@@ -56,6 +56,7 @@ struct ChatView: View {
                 isTriggered = true
             }
             authUser = try! Authentication.shared.getAuthUser().uid
+            ChatManager.shared.markChannelRead(cid: channel.cid)
         }
         .onDisappear {
             messageData.setMessage()

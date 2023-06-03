@@ -33,7 +33,7 @@ struct TextMessageField: View {
                     .resizable()
                     .frame(width:20, height:20)
                     .padding(.trailing, 15)
-            }.highPriorityGesture(
+            }.simultaneousGesture(
                 LongPressGesture(minimumDuration: 1.2)
                     .onEnded { _ in
                         DetectedObjectModal.shared.recognizedObjects = ""

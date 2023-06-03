@@ -9,8 +9,8 @@ import FirebaseFunctionsCombineSwift
 
 
 final class MessageDataManager: ObservableObject {
-    @Published private(set) var message: [Message]? = []
-    @Published  var receivedMessages: [Message]? = []
+    @Published private(set) var message: [MessageData]? = []
+    @Published  var receivedMessages: [MessageData]? = []
     func loadMessages(cid: ChannelId?){
         message = ChatManager.shared.loadMessages(cid: cid)
         message!.sort {$0.CreatedAt < $1.CreatedAt}
@@ -22,35 +22,14 @@ final class MessageDataManager: ObservableObject {
     
     func sendMessage(message: String, cid: ChannelId){
         ChatManager.shared.sendMessage(message: message, cid: cid)
-        self.message!.append(Message(text: message, isMe: true))
+        self.message!.append(MessageData(text: message, isMe: true))
     }
     
     func getRecieversMessages() {
         let newMessages = ChatManager.shared.sendRecievedMessage()
         receivedMessages! += newMessages
         receivedMessages?.sort { $0.CreatedAt < $1.CreatedAt }
-        print(receivedMessages as Any)
-    }
-}
-
-extension AppDelegate: EventsControllerDelegate{
-    func eventsController(_ controller: EventsController, didReceiveEvent event: Event) {
-        switch event {
-        case let event as MessageNewEvent:
-            DispatchQueue.main.async {
-                var lastMessageStamp: String {
-                    let formatter = DateFormatter()
-                    formatter.dateStyle = .none
-                    formatter.timeStyle = .short
-                    return formatter.string(from:event.message.createdAt )
-                }
-                let message = Message(text: event.message.text, isMe: false, timeStamp: lastMessageStamp, CreatedAt: event.message.createdAt,usersId: event.message.author.id)
-                ChatManager.shared.setRecievedMessages(messages: message)
-                NotificationCenter.default.post(name: .isTriggeredChange, object: nil)
-            }
-        default:
-            break
-        }
+//        print(receivedMessages as Any)
     }
 }
 
@@ -58,7 +37,7 @@ extension Notification.Name {
     static let isTriggeredChange = Notification.Name("IsTriggered")
 }
 
-struct Message:Hashable {
+struct MessageData:Hashable {
     var id = UUID()
     var text: String = ""
     var isMe:Bool = true
@@ -70,7 +49,7 @@ struct Message:Hashable {
 class ChatManager{
     static let shared = ChatManager()
     private let chatClient: ChatClient
-    var recievedMessage: [Message] = []
+    var recievedMessage: [MessageData] = []
     var isTriggered = false
     private init() {
         let config = ChatClientConfig(apiKey: .init("3n2z86vjm8wc"))
@@ -145,10 +124,10 @@ class ChatManager{
             print(error ?? "message sent")
         }
     }
-    func loadMessages(cid: ChannelId?) -> [Message] {
+    func loadMessages(cid: ChannelId?) -> [MessageData] {
         let channelController = chatClient.channelController(for: cid!)
-        var message:[Message] = []
-        var uniqueMessages: Set<Message> = []
+        var message:[MessageData] = []
+        var uniqueMessages: Set<MessageData> = []
         do {
             let authUser = try Authentication.shared.getAuthUser()
             let indices = channelController.messages.indices
@@ -161,7 +140,7 @@ class ChatManager{
                     formatter.timeStyle = .short
                     return formatter.string(from:channelController.messages[i].createdAt )
                 }
-                let message = Message(text: messageText, isMe: isMe, timeStamp: lastMessageStamp,CreatedAt: channelController.messages[i].createdAt)
+                let message = MessageData(text: messageText, isMe: isMe, timeStamp: lastMessageStamp,CreatedAt: channelController.messages[i].createdAt)
                 uniqueMessages.insert(message)
             }
         } catch {
@@ -171,12 +150,23 @@ class ChatManager{
         return message
     }
     
-    func setRecievedMessages(messages:Message){
+    func setRecievedMessages(messages:MessageData){
         self.recievedMessage = [messages]
     }
-    func sendRecievedMessage()-> [Message]{
+    func sendRecievedMessage()-> [MessageData]{
         return self.recievedMessage
     }
+    
+    func markChannelRead(cid: ChannelId) {
+        let channelController = chatClient.channelController(for: cid)
+        channelController.markRead { error in
+            if let error = error {
+                print("Failed to mark channel as read: \(error)")
+            } else {
+                print("Channel marked as read")
+            }
+        }
+    }
+
 
 }
-
