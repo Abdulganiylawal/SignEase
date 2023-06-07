@@ -3,6 +3,9 @@ import SwiftUI
 import AVFoundation
 import Vision
 import FirebaseStorage
+import CoreImage
+import CoreML
+
 
 
 extension CameraViewController:ObservableObject{
@@ -10,7 +13,7 @@ extension CameraViewController:ObservableObject{
     func setupVision() -> NSError?{
         let error: NSError! = nil
 
-        guard let modelURL = Bundle.main.url(forResource: "ASLDetector1", withExtension: "mlmodelc") else {
+        guard let modelURL = Bundle.main.url(forResource: "AmericanSignDetection1", withExtension: "mlmodelc") else {
             return NSError(domain: "VisionObjectRecognitionViewController", code: -1, userInfo: [NSLocalizedDescriptionKey: "Model file is missing"])
         }
         do{
@@ -19,13 +22,21 @@ extension CameraViewController:ObservableObject{
                 DispatchQueue.main.async(execute: {
                     if let results = request.results as? [VNRecognizedObjectObservation] {
                         self.drawVisionRequestResults(results)
-                        let recognizedObjects = results.compactMap { observation -> String? in
-                                       guard let topLabelObservation = observation.labels.first else {
-                                           return nil
-                                       }
-                                return "\(topLabelObservation.identifier)"
-                    }
-                        DetectedObjectModal.shared.recognizedObjects += recognizedObjects.joined(separator: "")
+                        let recognizedObjects = results.compactMap { observation -> (identifier: String, confidence: VNConfidence)? in
+                            guard let topLabelObservation = observation.labels.first else {
+                                return nil
+                            }
+                            return (identifier: topLabelObservation.identifier, confidence: topLabelObservation.confidence)
+                        }
+                          
+                        if let firstObject = recognizedObjects.first {
+                            if recognizedObjects.count == 1 && firstObject.confidence >= 0.9 {
+                                DetectedObjectModal.shared.recognizedObjects = [firstObject.identifier]
+                            }
+                        }
+                        if recognizedObjects.isEmpty {
+                            DetectedObjectModal.shared.recognizedObjects = [""]
+                        }
                     }
                 })
             })
@@ -63,23 +74,33 @@ extension CameraViewController:ObservableObject{
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return
         }
-        // Create a CIImage from the pixel buffer
+//         Create a CIImage from the pixel buffer
 //        let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
 
-//        // Create a UIImage from the CIImage
+        // Create a UIImage from the CIImage
 //        let context = CIContext()
 //        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else {
 //            return
 //        }
 //        let uiImage = UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .right)
 //
-////        let error = uploadImageToStorage(image: uiImage)
-////        print(error)
+//            let error = self.uploadImageToStorage(image: uiImage)
+//            print(error)
+       
         let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
-        do {
-            try imageRequestHandler.perform(self.requests)
-        } catch {
-            print(error)
+
+//        do {
+//            try imageRequestHandler.perform(self.requests)
+//        } catch {
+//            print(error)
+//        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            do {
+                try imageRequestHandler.perform(self.requests)
+            } catch {
+                print(error)
+            }
         }
     }
 //    
@@ -99,7 +120,7 @@ extension CameraViewController:ObservableObject{
 //        }
 //        return (UploadError.imageConversionFailed)
 //    }
-//
+
     func setupLayers() {
         detectionOverlay = CALayer() // container layer that has all the renderings of the observations
         detectionOverlay.name = "DetectionOverlay"
@@ -128,7 +149,6 @@ extension CameraViewController:ObservableObject{
         detectionOverlay.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(.pi / 2.0)).scaledBy(x: scale, y: -scale))
         // center the layer
         detectionOverlay.position = CGPoint(x: bounds.midX, y: bounds.midY)
-
         CATransaction.commit()
 
     }

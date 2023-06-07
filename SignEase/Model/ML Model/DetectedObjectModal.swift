@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 final class DetectedObjectModal: ObservableObject{
-    @Published var recognizedObjects: String = ""
+    @Published var recognizedObjects: [String] = []
     static let shared = DetectedObjectModal()
     init(){}
 }

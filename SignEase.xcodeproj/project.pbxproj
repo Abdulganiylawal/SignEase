@@ -66,6 +66,7 @@
 		10D4985F2A1BB60A00297BC6 /* ChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D4985E2A1BB60A00297BC6 /* ChatData.swift */; };
 		10E1FF812A178E1200A038AC /* FriendsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E1FF802A178E1200A038AC /* FriendsItemView.swift */; };
 		10F80BE82A0BEFC900AF0327 /* ObjectDetector1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F80BE72A0BEFC900AF0327 /* ObjectDetector1.swift */; };
+		10FF05112A2D8D8500146C0B /* AmericanSignDetection1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 10FF05102A2D8D8400146C0B /* AmericanSignDetection1.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +119,7 @@
 		10D4985E2A1BB60A00297BC6 /* ChatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatData.swift; sourceTree = "<group>"; };
 		10E1FF802A178E1200A038AC /* FriendsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsItemView.swift; sourceTree = "<group>"; };
 		10F80BE72A0BEFC900AF0327 /* ObjectDetector1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectDetector1.swift; sourceTree = "<group>"; };
+		10FF05102A2D8D8400146C0B /* AmericanSignDetection1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = AmericanSignDetection1.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -348,6 +350,7 @@
 		10D4984E2A1B928600297BC6 /* ML Model */ = {
 			isa = PBXGroup;
 			children = (
+				10FF05102A2D8D8400146C0B /* AmericanSignDetection1.mlmodel */,
 				10D0B6A32A0CBAF300570BA4 /* ASLDetector1.mlmodel */,
 				10F80BE72A0BEFC900AF0327 /* ObjectDetector1.swift */,
 				10CF47542A2B8E0A00A80D90 /* DetectedObjectModal.swift */,
@@ -513,6 +516,7 @@
 				10ABE6B429CF3D1400A2F705 /* SignEaseApp.swift in Sources */,
 				107EDDDA2A1F686E006C8537 /* CameraAndChatView.swift in Sources */,
 				10D10F892A26681200F7DE29 /* MessageSettingsView.swift in Sources */,
+				10FF05112A2D8D8500146C0B /* AmericanSignDetection1.mlmodel in Sources */,
 				10B776782A125842002CF0F1 /* ProfileView.swift in Sources */,
 				10B7766D2A124FBF002CF0F1 /* Animations.swift in Sources */,
 			);
@@ -733,8 +737,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getstream/stream-chat-swiftui";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				kind = exactVersion;
+				version = 4.31.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

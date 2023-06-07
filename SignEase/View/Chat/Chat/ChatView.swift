@@ -23,15 +23,14 @@ struct ChatView: View {
                         .onChange(of: messageData.message) { _ in
                             scrollToBottom = true
                         }
-                    }
-                    VStack(spacing: 8) {
+                    
                         ForEach(messageData.receivedMessages!, id: \.id) { message in
                             if message.usersId != authUser {
                                 ChatBubble(message: message)
                             }
                         }.flip()
                         .flip()
-                        .id(isTriggered)
+//                        .id(isTriggered)
                     }
                 }
                 .flip()

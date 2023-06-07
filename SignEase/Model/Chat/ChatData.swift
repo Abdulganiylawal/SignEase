@@ -27,9 +27,9 @@ final class MessageDataManager: ObservableObject {
     
     func getRecieversMessages() {
         let newMessages = ChatManager.shared.sendRecievedMessage()
-        receivedMessages! += newMessages
+        receivedMessages! = newMessages
         receivedMessages?.sort { $0.CreatedAt < $1.CreatedAt }
-//        print(receivedMessages as Any)
+        print(receivedMessages as Any)
     }
 }
 
@@ -50,6 +50,7 @@ class ChatManager{
     static let shared = ChatManager()
     private let chatClient: ChatClient
     var recievedMessage: [MessageData] = []
+    var RecievedMessageData = MessageDataManager()
     var isTriggered = false
     private init() {
         let config = ChatClientConfig(apiKey: .init("3n2z86vjm8wc"))
@@ -112,16 +113,11 @@ class ChatManager{
         let channelController = chatClient.channelController(for: cid)
         channelController.createNewMessage(text: message) { result in
             switch result {
-            case .success(let messageId):
-                print("Message sent with ID: \(messageId)")
-                
+            case .success(_):
+                self.RecievedMessageData.getRecieversMessages()
             case .failure(let error):
                 print("Error sending message: \(error)")
             }
-        }
-        channelController.synchronize{
-            error in
-            print(error ?? "message sent")
         }
     }
     func loadMessages(cid: ChannelId?) -> [MessageData] {
