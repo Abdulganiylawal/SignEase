@@ -59,8 +59,8 @@ struct dBUser:Codable{
 final class UserManager{
     static let shared = UserManager()
     private init(){}
-//    var alertManager = AlertManager()
     var alertMessages:String? = nil
+    var downloadUrl:URL? = nil
     
     private let userCollection = Firestore.firestore().collection("Users")
     
@@ -112,8 +112,8 @@ final class UserManager{
         if let image = image {
             let imageURL = try await uploadImageToStorage(image: image, userId: userId)
             do {
-                let downloadURL = try await generateDownloadURL(userId: userId, path: imageURL.name)
-                data["photourl"] = downloadURL.absoluteString
+                self.downloadUrl = try await generateDownloadURL(userId: userId, path: imageURL.name)
+                data["photourl"] = self.downloadUrl!.absoluteString
                 data["photoname"] = imageURL.name
             } catch {
                 print("Error: \(error)")

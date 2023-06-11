@@ -17,27 +17,31 @@ class AppDelegate: NSObject, UIApplicationDelegate ,EventsControllerDelegate{
         return client
     }()
 
-    internal func application(_ application: UIApplication,
+    func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil)-> Bool {
         FirebaseApp.configure()
+        // StreamChat Instance 
         streamChat = StreamChat(chatClient: chatClient)
         eventsController = chatClient.eventsController()
         eventsController.delegate = self
         connectUser()
         return true
     }
+//    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+//            return .portrait
+//        }
     func eventsController(_ controller: EventsController, didReceiveEvent event: Event) {
         switch event {
         case let event as MessageNewEvent:
+            print(event.message.text)
                 var lastMessageStamp: String {
                     let formatter = DateFormatter()
-                    formatter.dateStyle = .none
+                    formatter.dateStyle = .short
                     formatter.timeStyle = .short
-                    return formatter.string(from:event.message.createdAt )
+                    return formatter.string(from:event.message.createdAt)
                 }
                 let message = MessageData(text: event.message.text, isMe: false, timeStamp: lastMessageStamp, CreatedAt: event.message.createdAt,usersId: event.message.author.id)
-                print(message)
-                ChatManager.shared.setRecievedMessages(messages: message)
+                ChatManager.shared.setRecievedMessages(messages: message, channelID: event.cid.rawValue)
                 NotificationCenter.default.post(name: .isTriggeredChange, object: nil)
         default:
             break
@@ -85,6 +89,8 @@ struct SignEaseApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()        }
+            ContentView()
+          
+        }
     }
 }

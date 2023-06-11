@@ -8,8 +8,11 @@ import FirebaseAuth
 @available(iOS 16.0, *)
 struct SignUp: View {
     @StateObject private var viewModal = SignViewData()
+    @StateObject private var profileData = ProfileModal()
+    @Environment(\.presentationMode) var presentationMode
     @State private var mainView = false
     @State private var SignInView = false
+    
     var body: some View {
         ZStack {
             VStack(alignment: .leading){
@@ -50,22 +53,38 @@ struct SignUp: View {
                         do{
                             try await viewModal.signUp()
                             if viewModal.value == true{
-                                mainView.toggle()
+                                DispatchQueue.main.async {
+                                    mainView.toggle()
+                                }
+                                do {
+                                    try await profileData.loadCurrentUser()
+                                    if let user = profileData.user,
+                                       let photoUrl = user.photourl,
+                                       let userId = user.userid,
+                                       let username = user.username {
+                                        ChatManager.shared.connectUser(userId: userId, username: username, photoURL: photoUrl)
+                                    }
+                                } catch {
+                                    print(error)
+                                }
+                                
                             }
-                            return
                         }
                         catch {
-                            print(error)
+                            handleError(error as! SignViewError)
                         }
                     }
                 } label: {
                     ButtonView(title: "Create Account")
+                }.alert(item: $viewModal.error) { error in
+                    Alert(title: Text("Error"), message: Text(error.message), dismissButton: .default(Text("OK")))
                 }
-                
                 .padding(.leading,10)
                 .padding(.trailing,10)
                 .fullScreenCover(isPresented: $mainView) {
-                    RootView()
+                    NavigationStack{
+                        RootView()
+                    }
                 }
                 Divider()
                     .padding(5)
@@ -89,6 +108,7 @@ struct SignUp: View {
                         SignIn()
                     }
                 }
+                
                 .padding(.leading,20)
             }.padding(15)
                 .frame(width: 400,height: 370)
@@ -99,6 +119,9 @@ struct SignUp: View {
         }.background(
             Image("Background 4")
         )
+    }
+    private func handleError(_ error: SignViewError) {
+        viewModal.error = error
     }
 }
 

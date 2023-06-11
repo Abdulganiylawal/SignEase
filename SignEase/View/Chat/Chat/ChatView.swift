@@ -5,32 +5,26 @@ import Combine
 
 @available(iOS 16.0, *)
 struct ChatView: View {
+ 
     @StateObject var messageData: MessageDataManager = MessageDataManager()
     @State var isTriggered = false
     @State var authUser: String = ""
     @State private var scrollToBottom = false
-
     var channel: ChatChannel
+    
+
     var body: some View {
         VStack(spacing: 0) {
             ScrollViewReader { scrollViewProxy in
                 ScrollView {
                     VStack(spacing: 8) {
                         ForEach(messageData.message!, id: \.id) { message in
-                            ChatBubble(message: message)
-                        }.flip()
-                            .flip()
-                        .onChange(of: messageData.message) { _ in
-                            scrollToBottom = true
-                        }
-                    
-                        ForEach(messageData.receivedMessages!, id: \.id) { message in
-                            if message.usersId != authUser {
+                            if message.usersId != authUser && messageData.ChannelID == channel.cid.rawValue {
                                 ChatBubble(message: message)
                             }
+                          
                         }.flip()
                         .flip()
-//                        .id(isTriggered)
                     }
                 }
                 .flip()
@@ -55,7 +49,6 @@ struct ChatView: View {
                 isTriggered = true
             }
             authUser = try! Authentication.shared.getAuthUser().uid
-            ChatManager.shared.markChannelRead(cid: channel.cid)
         }
         .onDisappear {
             messageData.setMessage()
@@ -63,9 +56,11 @@ struct ChatView: View {
         .onChange(of: isTriggered) { newValue in
             if newValue {
                 messageData.getRecieversMessages()
+                ChatManager.shared.markChannelRead(cid: channel.cid)
                 isTriggered = false
             }
         }
+       
     }
 }
 

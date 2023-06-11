@@ -80,7 +80,9 @@ struct ProfileView: View {
                         }
                 }
             }
-        }   .alert(isPresented: $showAlert) {
+            
+        }
+        .alert(isPresented: $showAlert) {
             Alert(
                 title: Text("Edit Profile"),
                 message: Text(UserManager.shared.alertMessages!),
@@ -106,18 +108,23 @@ struct ProfileView: View {
             PhotosPicker("Select avatar", selection: $avatarItem, matching: .images)
         }
         .onChange(of: avatarItem) { _ in
-            Task {
-                if let data = try? await avatarItem?.loadTransferable(type: Data.self) {
-                    if let uiImage = UIImage(data: data) {
-                        image = uiImage
-                        avatarImage = Image(uiImage: uiImage)
-                        return
+            DispatchQueue.main.async {
+                Task {
+                    do {
+                        if let data = try await avatarItem?.loadTransferable(type: Data.self) {
+                            if let uiImage = UIImage(data: data) {
+                                image = uiImage
+                                avatarImage = Image(uiImage: uiImage)
+                                return
+                            }
+                        }
+                        print("Failed to load avatar image")
+                    } catch {
+                        print("Error loading avatar image: \(error)")
                     }
                 }
-                print("Failed")
             }
         }
-        
     }
     
     

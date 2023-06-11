@@ -18,7 +18,7 @@ struct AccountView: View {
                     profile
                 }
                 Section{
-                    lawal
+                    userData
                 }
                 Section{
                     Button {
@@ -37,16 +37,23 @@ struct AccountView: View {
                     }
                     .fullScreenCover(isPresented:$signup ) {
                         SignUp()
-                        
                     }
                 }
             }.listStyle(.insetGrouped)
                 .navigationTitle("Account")
         }.onAppear {
             Task{
-                try await ProfileData.loadCurrentUser()
-                if let user = ProfileData.user{
-                    self.url = URL(string: user.photourl!)
+                DispatchQueue.main.async {
+                    Task {
+                        do {
+                            try await ProfileData.loadCurrentUser()
+                            if let user = ProfileData.user {
+                                self.url = URL(string: user.photourl ?? "https://www.vectorstock.com/royalty-free-vector/user-sign-icon-person-symbol-human-avatar-vector-12693195")
+                            }
+                        } catch {
+                            print("Error loading current user: \(error)")
+                        }
+                    }
                 }
             }
         }
@@ -93,7 +100,7 @@ struct AccountView: View {
         .padding()
     }
     
-    var lawal: some View {
+    var userData: some View {
         Section {
             NavigationLink {
                 ProfileView()

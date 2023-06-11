@@ -1,9 +1,3 @@
-//
-//  RootView.swift
-//  SignEase
-//
-//  Created by Lawal Abdulganiy on 15/05/2023.
-//
 
 import SwiftUI
 import StreamChat
@@ -11,7 +5,8 @@ import StreamChatSwiftUI
 
 @available(iOS 16.0, *)
 struct RootView: View {
-    @AppStorage("selectedTab") var selectedTab: Tab = .chat
+    @AppStorage("selectedTab") var selectedTab: Tab = .account
+    @ObservedObject private var profileData = ProfileModal()
     @State var showNewChat:Bool = false
     var body: some View {
         ZStack{
@@ -20,19 +15,16 @@ struct RootView: View {
                 case .chat:
                     Conversation
                 case .account:
-                     AccountView()
+                    AccountView()
                 }
                 
             }
-            .safeAreaInset(edge: .bottom) {
-                VStack {}.frame(height: 44)
-            }
             TabBar()
         }
-        
     }
     
-    var Conversation: some View{
+    var Conversation:  some View{
+      
         ChatChannelListView(viewFactory: ConversationView()).navigationTitle("Chats").toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
@@ -45,8 +37,6 @@ struct RootView: View {
                     NewChatView()
                 }
             }
-        }.safeAreaInset(edge: .bottom) {
-            VStack {}.frame(height: 44)
         }
     }
 }

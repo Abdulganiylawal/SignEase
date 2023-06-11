@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		10064A1829E5904E0085B100 /* CommunicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10064A1729E5904E0085B100 /* CommunicatorView.swift */; };
+		10077D112A31C1B90077E533 /* AmericanSignDetection1.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 10077D102A31C1B90077E533 /* AmericanSignDetection1.mlpackage */; };
+		10077D132A321C570077E533 /* ASLDetector 1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 10077D122A321C570077E533 /* ASLDetector 1.mlmodel */; };
 		100FD48429D472700016184B /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100FD48329D472700016184B /* CameraView.swift */; };
 		105CE3C92A1504A000E44634 /* NewChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105CE3C82A1504A000E44634 /* NewChatView.swift */; };
 		105CE3CD2A15158400E44634 /* MessageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105CE3CC2A15158400E44634 /* MessageHeaderView.swift */; };
@@ -32,6 +34,7 @@
 		10ABE6B629CF3D1400A2F705 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10ABE6B529CF3D1400A2F705 /* ContentView.swift */; };
 		10ABE6B829CF3D1700A2F705 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10ABE6B729CF3D1700A2F705 /* Assets.xcassets */; };
 		10ABE6BB29CF3D1700A2F705 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10ABE6BA29CF3D1700A2F705 /* Preview Assets.xcassets */; };
+		10AC45482A334E700065B609 /* SignDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 10AC45472A334E700065B609 /* SignDetector.mlmodel */; };
 		10B7765E2A121287002CF0F1 /* SignViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B7765D2A121287002CF0F1 /* SignViewData.swift */; };
 		10B776642A12176C002CF0F1 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B776632A12176C002CF0F1 /* ProfileModel.swift */; };
 		10B776672A124D53002CF0F1 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B776662A124D53002CF0F1 /* TabBar.swift */; };
@@ -66,11 +69,12 @@
 		10D4985F2A1BB60A00297BC6 /* ChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D4985E2A1BB60A00297BC6 /* ChatData.swift */; };
 		10E1FF812A178E1200A038AC /* FriendsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E1FF802A178E1200A038AC /* FriendsItemView.swift */; };
 		10F80BE82A0BEFC900AF0327 /* ObjectDetector1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F80BE72A0BEFC900AF0327 /* ObjectDetector1.swift */; };
-		10FF05112A2D8D8500146C0B /* AmericanSignDetection1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 10FF05102A2D8D8400146C0B /* AmericanSignDetection1.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		10064A1729E5904E0085B100 /* CommunicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorView.swift; sourceTree = "<group>"; };
+		10077D102A31C1B90077E533 /* AmericanSignDetection1.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = AmericanSignDetection1.mlpackage; sourceTree = "<group>"; };
+		10077D122A321C570077E533 /* ASLDetector 1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "ASLDetector 1.mlmodel"; sourceTree = "<group>"; };
 		100FD48329D472700016184B /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		105CE3C82A1504A000E44634 /* NewChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatView.swift; sourceTree = "<group>"; };
 		105CE3CC2A15158400E44634 /* MessageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHeaderView.swift; sourceTree = "<group>"; };
@@ -89,11 +93,13 @@
 		1086BDC22A0FDC6300B13586 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		1086BDC62A0FE84A00B13586 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1086BDC82A0FF1A200B13586 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		10AAED2B2A34E5AB00A550DB /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10ABE6B029CF3D1400A2F705 /* SignEase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SignEase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10ABE6B329CF3D1400A2F705 /* SignEaseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignEaseApp.swift; sourceTree = "<group>"; };
 		10ABE6B529CF3D1400A2F705 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		10ABE6B729CF3D1700A2F705 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10ABE6BA29CF3D1700A2F705 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		10AC45472A334E700065B609 /* SignDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SignDetector.mlmodel; sourceTree = "<group>"; };
 		10B7765D2A121287002CF0F1 /* SignViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewData.swift; sourceTree = "<group>"; };
 		10B776632A12176C002CF0F1 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		10B776662A124D53002CF0F1 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
@@ -102,7 +108,6 @@
 		10B7766C2A124FBF002CF0F1 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		10B776712A125421002CF0F1 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		10B776772A125842002CF0F1 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
-		10C0D4D72A0E7632007668B3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10C0D4F02A0EBF70007668B3 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
 		10C385BA2A1751B7003C2F4C /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		10CB41BD2A125FAB00C28E59 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -119,7 +124,6 @@
 		10D4985E2A1BB60A00297BC6 /* ChatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatData.swift; sourceTree = "<group>"; };
 		10E1FF802A178E1200A038AC /* FriendsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsItemView.swift; sourceTree = "<group>"; };
 		10F80BE72A0BEFC900AF0327 /* ObjectDetector1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectDetector1.swift; sourceTree = "<group>"; };
-		10FF05102A2D8D8400146C0B /* AmericanSignDetection1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = AmericanSignDetection1.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,8 +238,8 @@
 			children = (
 				10ABE6B929CF3D1700A2F705 /* Preview Content */,
 				10ABE6B329CF3D1400A2F705 /* SignEaseApp.swift */,
+				10AAED2B2A34E5AB00A550DB /* Info.plist */,
 				1086BDC62A0FE84A00B13586 /* GoogleService-Info.plist */,
-				10C0D4D72A0E7632007668B3 /* Info.plist */,
 				10ABE6C129CF3E7500A2F705 /* View */,
 				10064A1E29E5B0860085B100 /* Model */,
 				1086BDBD2A0FCDC500B13586 /* Styles */,
@@ -350,7 +354,9 @@
 		10D4984E2A1B928600297BC6 /* ML Model */ = {
 			isa = PBXGroup;
 			children = (
-				10FF05102A2D8D8400146C0B /* AmericanSignDetection1.mlmodel */,
+				10077D102A31C1B90077E533 /* AmericanSignDetection1.mlpackage */,
+				10AC45472A334E700065B609 /* SignDetector.mlmodel */,
+				10077D122A321C570077E533 /* ASLDetector 1.mlmodel */,
 				10D0B6A32A0CBAF300570BA4 /* ASLDetector1.mlmodel */,
 				10F80BE72A0BEFC900AF0327 /* ObjectDetector1.swift */,
 				10CF47542A2B8E0A00A80D90 /* DetectedObjectModal.swift */,
@@ -497,7 +503,9 @@
 				107EDDD62A1D3266006C8537 /* MessageListHeader.swift in Sources */,
 				10B776722A125421002CF0F1 /* AccountView.swift in Sources */,
 				10B7766B2A124F44002CF0F1 /* PrefrenceKey.swift in Sources */,
+				10AC45482A334E700065B609 /* SignDetector.mlmodel in Sources */,
 				1086BDC12A0FD9D500B13586 /* CustomModifier.swift in Sources */,
+				10077D112A31C1B90077E533 /* AmericanSignDetection1.mlpackage in Sources */,
 				10B776672A124D53002CF0F1 /* TabBar.swift in Sources */,
 				10B776642A12176C002CF0F1 /* ProfileModel.swift in Sources */,
 				10C385BB2A1751B7003C2F4C /* FriendsView.swift in Sources */,
@@ -505,6 +513,7 @@
 				100FD48429D472700016184B /* CameraView.swift in Sources */,
 				105CE3CF2A15495300E44634 /* SearchFriendsView.swift in Sources */,
 				10C0D4F12A0EBF70007668B3 /* SignIn.swift in Sources */,
+				10077D132A321C570077E533 /* ASLDetector 1.mlmodel in Sources */,
 				10ABE6B629CF3D1400A2F705 /* ContentView.swift in Sources */,
 				10D10F7C2A2249A200F7DE29 /* UserBubble.swift in Sources */,
 				10D4985F2A1BB60A00297BC6 /* ChatData.swift in Sources */,
@@ -516,7 +525,6 @@
 				10ABE6B429CF3D1400A2F705 /* SignEaseApp.swift in Sources */,
 				107EDDDA2A1F686E006C8537 /* CameraAndChatView.swift in Sources */,
 				10D10F892A26681200F7DE29 /* MessageSettingsView.swift in Sources */,
-				10FF05112A2D8D8500146C0B /* AmericanSignDetection1.mlmodel in Sources */,
 				10B776782A125842002CF0F1 /* ProfileView.swift in Sources */,
 				10B7766D2A124FBF002CF0F1 /* Animations.swift in Sources */,
 			);
@@ -738,7 +746,7 @@
 			repositoryURL = "https://github.com/getstream/stream-chat-swiftui";
 			requirement = {
 				kind = exactVersion;
-				version = 4.31.0;
+				version = 4.32.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

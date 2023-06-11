@@ -5,22 +5,54 @@ import StreamChatSwiftUI
 import FirebaseFunctions
 import FirebaseFunctionsCombineSwift
 
+
+enum SignViewError: Error, Identifiable {
+    case emptyEmailOrPassword
+    case invalidEmailFormat
+    case signUpError
+    case signInError
+
+    var id: String {
+        switch self {
+        case .emptyEmailOrPassword:
+            return "emptyEmailOrPassword"
+        case .invalidEmailFormat:
+            return "invalidEmailFormat"
+        case .signUpError:
+            return "signUpError"
+        case .signInError:
+            return "signInError"
+        }
+    }
+
+    var message: String {
+        switch self {
+        case .emptyEmailOrPassword:
+            return "Please provide both email and password."
+        case .invalidEmailFormat:
+            return "Invalid email format."
+        case .signUpError, .signInError:
+            return "Email or Password is wrong"
+        }
+    }
+}
+
+@MainActor
 final class SignViewData: ObservableObject {
     @Published var text: String = ""
     @Published var password: String = ""
+    @Published var error: SignViewError? = nil
     var value: Bool = false
     
     func signUp() async throws {
         guard !text.isEmpty, !password.isEmpty else {
-            print("No email or password found")
             value = false
-            return
+            throw SignViewError.emptyEmailOrPassword
         }
         
         guard isValidEmail(text) else {
-            print("Invalid email format")
             value = false
-            return
+            throw SignViewError.invalidEmailFormat
         }
         
         do {
@@ -29,23 +61,26 @@ final class SignViewData: ObservableObject {
             try await UserManager.shared.createNewUser(user: user)
             value = !returnedUserData.uid.isEmpty
         } catch {
-            print("Sign up error: \(error)")
-            throw error
+            throw SignViewError.signUpError
         }
     }
     
     func signIn() async throws {
         guard !text.isEmpty, !password.isEmpty else {
-            print("No email or password found")
-            return
+            throw SignViewError.emptyEmailOrPassword
+        }
+        
+        guard isValidEmail(text) else {
+            value = false
+            throw SignViewError.invalidEmailFormat
         }
         
         do {
             let returnedUserData = try await Authentication.shared.signInUser(email: text, pass: password)
             value = !returnedUserData.uid.isEmpty
         } catch {
-            print("Sign in error: \(error)")
-            throw error
+            print(error)
+            throw SignViewError.signInError
         }
     }
     

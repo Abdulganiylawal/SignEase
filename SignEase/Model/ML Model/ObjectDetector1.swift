@@ -13,7 +13,7 @@ extension CameraViewController:ObservableObject{
     func setupVision() -> NSError?{
         let error: NSError! = nil
 
-        guard let modelURL = Bundle.main.url(forResource: "AmericanSignDetection1", withExtension: "mlmodelc") else {
+        guard let modelURL = Bundle.main.url(forResource: "SignDetector", withExtension: "mlmodelc") else {
             return NSError(domain: "VisionObjectRecognitionViewController", code: -1, userInfo: [NSLocalizedDescriptionKey: "Model file is missing"])
         }
         do{
@@ -89,19 +89,19 @@ extension CameraViewController:ObservableObject{
        
         let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
 
-//        do {
-//            try imageRequestHandler.perform(self.requests)
-//        } catch {
-//            print(error)
-//        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            do {
-                try imageRequestHandler.perform(self.requests)
-            } catch {
-                print(error)
-            }
+        do {
+            try imageRequestHandler.perform(self.requests)
+        } catch {
+            print(error)
         }
+
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+//            do {
+//                try imageRequestHandler.perform(self.requests)
+//            } catch {
+//                print(error)
+//            }
+//        }
     }
 //    
 //    func uploadImageToStorage(image: UIImage) -> Error  {

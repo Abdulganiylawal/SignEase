@@ -14,7 +14,7 @@ struct AuthDataResultModel {
     }
 }
 
-class Authentication: ObservableObject {
+class Authentication{
     static let shared = Authentication()
     
     private init() {}

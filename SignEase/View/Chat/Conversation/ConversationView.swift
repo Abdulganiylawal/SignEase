@@ -19,7 +19,6 @@ class ConversationView: ViewFactory {
         case "Standard":
             return { selectionInfo in
                 let channelIdString = selectionInfo.channel.cid.rawValue
-                print(channelIdString)
                 return AnyView(ChatChannelView(viewFactory: ConversationView.shared, channelController: self.chatClient.channelController(
                     for: try! ChannelId(cid: channelIdString),
                     messageOrdering: .topToBottom

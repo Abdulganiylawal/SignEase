@@ -26,7 +26,7 @@ struct NewChatView: View {
                                     FriendsItemView(name: friend.friendName ?? "Default", Username: friend.friendUsername ?? "Default", frame: 40, padding: 0, url: profileURL).onTapGesture {
                                         Task {
                                             do {
-                                                 ChatManager.shared.createChannelWithFriend(username: friend.friendUsername!, photourl: profileURLString, friendUserId: friend.friendUserId!) { result in
+                                                ChatManager.shared.createChannelWithFriend(username: friend.friendUsername!, photourl: profileURLString, friendUserId: friend.friendUserId ?? "") { result in
                                                     switch result {
                                                     case .success:
                                                         success = true

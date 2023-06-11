@@ -14,20 +14,12 @@ final class FriendsModal: ObservableObject {
 }
 
 
-class AlertManager: ObservableObject {
-    @Published var alertMessage: String = ""
-    
-    func showAlert(message: String) {
-        alertMessage = message
-    }
-}
-
 struct friendsDb: Codable, Hashable {
     let friendUserId: String?
     let friendUsername: String?
     let friendName: String?
     let friendProfileUrl: String?
-    let dataCreated: Date?
+    let dataCreated : Date?
     
     init(
         dataCreated: Date? = nil,
@@ -128,7 +120,7 @@ final class FriendManager {
         let querySnapshot = try await userCollection.document(userId).collection("Friends").getDocuments()
         
         for document in querySnapshot.documents {
-            if let friendData = try? document.data(as: friendsDb.self) {
+            if let friendData = try? document.data(as:  friendsDb.self) {
                 friends.append(friendData)
             }
         }

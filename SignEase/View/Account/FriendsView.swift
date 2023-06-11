@@ -1,10 +1,3 @@
-//
-//  FriendsView.swift
-//  SignEase
-//
-//  Created by Lawal Abdulganiy on 19/05/2023.
-//
-
 import SwiftUI
 
 struct FriendsView: View {

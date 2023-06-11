@@ -1,9 +1,13 @@
 import SwiftUI
 import Firebase
+import FirebaseCore
+import FirebaseAuth
+
 
 @available(iOS 16.0, *)
 struct SignIn: View {
     @StateObject private var viewModal = SignViewData()
+    @StateObject private var profileData = ProfileModal()
     @State private var SignUpView = false
     @State private var mainView = false
     var body: some View {
@@ -47,27 +51,42 @@ struct SignIn: View {
                         do{
                             try await viewModal.signIn()
                             if viewModal.value == true{
-                                mainView.toggle()
+                                DispatchQueue.main.async {
+                                    mainView.toggle()
+                                }
+                                do {
+                                    try await profileData.loadCurrentUser()
+                                    if let user = profileData.user,
+                                       let photoUrl = user.photourl,
+                                       let userId = user.userid,
+                                       let username = user.username {
+                                        ChatManager.shared.connectUser(userId: userId, username: username, photoURL: photoUrl)
+                                    }
+                                } catch {
+                                    print(error)
+                                }
                             }
-                            return
-                        
                         }
                         catch{
-                          
-                                print(error)
-                            
+                            handleError(error as! SignViewError)
                         }
                     }
                 }
-                label: {
-                    ButtonView(title: "Sign In")
-                }
+            label: {
+                ButtonView(title: "Sign In")
+            }
+            .alert(item: $viewModal.error) { error in
+                Alert(title: Text("Error"), message: Text(error.message), dismissButton: .default(Text("OK")))
+            }
                 
-                .padding(.leading,10)
-                .padding(.trailing,10)
-                .fullScreenCover(isPresented: $mainView) {
-                            RootView()
-                }
+            .padding(.leading,10)
+            .padding(.trailing,10)
+                            .fullScreenCover(isPresented: $mainView) {
+                                NavigationStack{
+                                    RootView()
+                                }.navigationViewStyle(.stack)
+                            }
+                .navigationBarBackButtonHidden(true)
                 Divider()
                     .padding(5)
                     .padding(.leading,10)
@@ -86,9 +105,9 @@ struct SignIn: View {
                     }
                 }
                 .fullScreenCover(isPresented:$SignUpView){
-                        NavigationStack{
-                            SignUp()
-                        }
+                    NavigationStack{
+                        SignUp()
+                    }
                 }.padding(.leading,20)
             }.padding(15)
                 .frame(width: 400,height: 400)
@@ -96,13 +115,18 @@ struct SignIn: View {
                 .shadow(color: Color("Shadow").opacity(0.3), radius: 10, x: 0, y: 10)
                 .strokeStyle(cornerRadius: 30)
                 .padding(20)
-                }.background(
-                    Image("Background")
-                )
-        }
+        }.background(
+            Image("Background")
+        )
+        
+        
     }
+    private func handleError(_ error: SignViewError) {
+        viewModal.error = error
+    }
+}
 
-    
+
 @available(iOS 16.0, *)
 struct SignIn_Previews: PreviewProvider {
     static var previews: some View {

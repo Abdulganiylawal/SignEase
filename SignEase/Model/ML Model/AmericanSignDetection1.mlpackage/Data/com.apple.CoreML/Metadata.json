@@ -1,0 +1,13 @@
+{
+  "MLModelVersionStringKey" : "--",
+  "MLModelDescriptionKey" : "The American Sign Language Letters dataset is an object detection dataset of each ASL letter",
+  "MLModelCreatorDefinedKey" : {
+    "com.apple.createml.version" : "12.6.5",
+    "com.apple.createml.app.tag" : "99.2",
+    "com.apple.coreml.model.preview.type" : "objectDetector",
+    "iterations" : "15000",
+    "com.apple.createml.app.version" : "4.0"
+  },
+  "MLModelAuthorKey" : "Lawal Abdulganiy",
+  "MLModelLicenseKey" : "--"
+}

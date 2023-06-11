@@ -12,7 +12,7 @@ struct TabBar: View {
     @State var selectedX: CGFloat = 0
     @State var x: [CGFloat] = [0, 0, 0, 0]
     @State var showTab: Bool = true
-    @AppStorage("selectedTab") var selectedTab: Tab = .chat
+    @AppStorage("selectedTab") var selectedTab: Tab = .account
     var body: some View {
         GeometryReader { proxy in
             let hasHomeIndicator = proxy.safeAreaInsets.bottom > 0

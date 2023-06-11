@@ -7,10 +7,11 @@ import FirebaseCore
 import FirebaseFunctions
 import FirebaseFunctionsCombineSwift
 
-
+@MainActor
 final class MessageDataManager: ObservableObject {
     @Published private(set) var message: [MessageData]? = []
     @Published  var receivedMessages: [MessageData]? = []
+    @Published var ChannelID:String = ""
     func loadMessages(cid: ChannelId?){
         message = ChatManager.shared.loadMessages(cid: cid)
         message!.sort {$0.CreatedAt < $1.CreatedAt}
@@ -27,9 +28,10 @@ final class MessageDataManager: ObservableObject {
     
     func getRecieversMessages() {
         let newMessages = ChatManager.shared.sendRecievedMessage()
-        receivedMessages! = newMessages
+        message! += newMessages.messageInfo
+        ChannelID = newMessages.channelID
         receivedMessages?.sort { $0.CreatedAt < $1.CreatedAt }
-        print(receivedMessages as Any)
+//        print(message as Any)
     }
 }
 
@@ -46,12 +48,13 @@ struct MessageData:Hashable {
     var usersId: String = ""
 }
 
+@MainActor
 class ChatManager{
     static let shared = ChatManager()
     private let chatClient: ChatClient
     var recievedMessage: [MessageData] = []
     var RecievedMessageData = MessageDataManager()
-    var isTriggered = false
+    var cid:String = ""
     private init() {
         let config = ChatClientConfig(apiKey: .init("3n2z86vjm8wc"))
         chatClient = ChatClient(config: config)
@@ -82,10 +85,8 @@ class ChatManager{
         }
     }
     func createChannelWithFriend(username: String, photourl: String, friendUserId: String, completion: @escaping (Result<Void, Error>) -> Void) {
-        let str = username
-        let usermame = String(str.dropFirst())
-        
-        print(usermame)
+//        let str = username
+//        let usermame = String(str.dropFirst())
         
         do {
             let channelController = try chatClient.channelController(createDirectMessageChannelWith: [friendUserId],
@@ -114,7 +115,8 @@ class ChatManager{
         channelController.createNewMessage(text: message) { result in
             switch result {
             case .success(_):
-                self.RecievedMessageData.getRecieversMessages()
+                print("Succesfull")
+                channelController.synchronize()
             case .failure(let error):
                 print("Error sending message: \(error)")
             }
@@ -146,11 +148,14 @@ class ChatManager{
         return message
     }
     
-    func setRecievedMessages(messages:MessageData){
+    func setRecievedMessages(messages:MessageData,channelID:String){
+//        print("n: \(messages)")
         self.recievedMessage = [messages]
+        self.cid = channelID
+      
     }
-    func sendRecievedMessage()-> [MessageData]{
-        return self.recievedMessage
+    func sendRecievedMessage()-> (messageInfo:[MessageData] , channelID:String){
+        return (messageInfo:self.recievedMessage, channelID:self.cid)
     }
     
     func markChannelRead(cid: ChannelId) {
