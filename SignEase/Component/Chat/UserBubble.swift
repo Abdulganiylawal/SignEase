@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UserBubble: View {
-    @State var color: Color = Color.green
+    @State var color: Color = Color.blue
     @State var content: String = "Lorem Ipsum"
     @State var timeStamp: String = ""
     @State private var toggleTime: Bool = false
