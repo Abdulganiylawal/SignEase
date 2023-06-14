@@ -30,7 +30,7 @@ extension CameraViewController:ObservableObject{
                         }
                           
                         if let firstObject = recognizedObjects.first {
-                            if recognizedObjects.count == 1 && firstObject.confidence >= 0.9 {
+                            if recognizedObjects.count == 1 && firstObject.confidence >= 0.83 {
                                 DetectedObjectModal.shared.recognizedObjects = [firstObject.identifier]
                             }
                         }

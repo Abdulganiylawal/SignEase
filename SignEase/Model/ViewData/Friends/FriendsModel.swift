@@ -60,6 +60,7 @@ final class FriendManager {
             return
         }
         
+        
         let friendCollectionRef = userCollection.document(userId).collection("Friends")
         let subcollectionSnapshot = try await friendCollectionRef.limit(to: 1).getDocuments()
         let subcollectionExists = !subcollectionSnapshot.isEmpty

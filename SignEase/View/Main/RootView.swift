@@ -6,7 +6,6 @@ import StreamChatSwiftUI
 @available(iOS 16.0, *)
 struct RootView: View {
     @AppStorage("selectedTab") var selectedTab: Tab = .account
-    @ObservedObject private var profileData = ProfileModal()
     @State var showNewChat:Bool = false
     var body: some View {
         ZStack{
